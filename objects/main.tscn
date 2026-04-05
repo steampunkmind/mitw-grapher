@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjmad8wgensc2"]
+[gd_scene load_steps=4 format=3 uid="uid://cjmad8wgensc2"]
 
 [ext_resource type="Script" uid="uid://dtj6ffthw023u" path="res://objects/main.gd" id="1_ig7tw"]
+[ext_resource type="Texture2D" uid="uid://o4eyaa5nl73x" path="res://graphics/play.svg" id="2_f1df6"]
+[ext_resource type="Texture2D" uid="uid://mjjjpbwvnl8s" path="res://graphics/pause.svg" id="3_5wnch"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
+frame_rate = 30.0
 
 [node name="FileMenu" type="MenuButton" parent="."]
 offset_left = 16.0
@@ -16,12 +19,45 @@ popup/item_0/text = "Open Files"
 popup/item_0/id = 0
 
 [node name="FileNames" type="Label" parent="."]
-offset_left = 100.0
+offset_left = 400.0
 offset_top = 8.0
-offset_right = 1842.0
+offset_right = 1542.0
 offset_bottom = 31.0
 text = "Open AIM and GAM Files"
 horizontal_alignment = 1
+
+[node name="PlayButton" type="TextureButton" parent="."]
+offset_left = 154.0
+offset_top = 10.0
+offset_right = 184.0
+offset_bottom = 40.0
+toggle_mode = true
+texture_normal = ExtResource("2_f1df6")
+texture_pressed = ExtResource("3_5wnch")
+
+[node name="FrameRateSlider" type="HSlider" parent="."]
+offset_left = 199.0
+offset_top = 17.0
+offset_right = 347.0
+offset_bottom = 33.0
+min_value = 1.0
+max_value = 120.0
+value = 1.0
+
+[node name="FrameRateValue" type="Label" parent="."]
+offset_left = 362.0
+offset_top = 13.0
+offset_right = 402.0
+offset_bottom = 36.0
+text = "0"
+
+[node name="FrameCount" type="Label" parent="."]
+offset_left = 428.0
+offset_top = 13.0
+offset_right = 468.0
+offset_bottom = 36.0
+text = "0"
+horizontal_alignment = 2
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -30,5 +66,11 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="toggled" from="PlayButton" to="." method="_on_play_button_toggled"]
+[connection signal="value_changed" from="FrameRateSlider" to="." method="_on_frame_rate_slider_value_changed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="focus_exited" from="FileDialog" to="." method="_on_file_dialog_focus_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
