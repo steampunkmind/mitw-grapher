@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjmad8wgensc2"]
+[gd_scene load_steps=5 format=3 uid="uid://cjmad8wgensc2"]
 
 [ext_resource type="Script" uid="uid://dtj6ffthw023u" path="res://objects/main.gd" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://m7fh8q7htptr" path="res://objects/governor_graph.tscn" id="2_5wnch"]
 [ext_resource type="Texture2D" uid="uid://o4eyaa5nl73x" path="res://graphics/play.svg" id="2_f1df6"]
 [ext_resource type="Texture2D" uid="uid://mjjjpbwvnl8s" path="res://graphics/pause.svg" id="3_5wnch"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
+governor_graph_template = ExtResource("2_5wnch")
 frame_rate = 30.0
 
 [node name="FileMenu" type="MenuButton" parent="."]

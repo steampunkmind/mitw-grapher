@@ -4,6 +4,9 @@ var _aim_model = ActionInfluenceModel.new()
 var _aim_model_name # holds name between file dialogs
 var _aim_model_json # holds json between file dialogs
 var _gam_model = GovernorActionModel.new()
+var governor_graphs: Dictionary[String, GovernorGraph]
+
+@export var governor_graph_template: PackedScene
 
 @export var frame_rate: float
 var _frame_count: int = 0
@@ -54,6 +57,28 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		_gam_model.set_model(json, _aim_model)
 		_aim_model_name = null
 		_aim_model_json = null
+		add_governor_graphs()
+
+
+func add_governor_graphs() -> void:
+	var header_margin = 48
+	var row_margin = 2
+	var row_location = header_margin
+	var header_width = 0.0
+	for governor: Governor in _gam_model.get_governors():
+		var graph = governor_graph_template.instantiate()
+		graph.init(governor, row_location)
+		var min_header_width = graph.get_min_header_width()
+		if header_width < min_header_width:
+			header_width = min_header_width
+		
+		add_child(graph)
+		governor_graphs.set(governor.get_name(), graph)
+		row_location = row_location + graph.size.y + row_margin
+		
+	for governor_graph: GovernorGraph in governor_graphs.values():
+		governor_graph.set_header_width(header_width)
+	
 
 
 func _on_frame_rate_slider_value_changed(value: float) -> void:
