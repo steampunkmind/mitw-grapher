@@ -7,7 +7,6 @@ var governor_graphs: Dictionary[String, GovernorGraph]
 @export var governor_graph_template: PackedScene
 
 @export var frame_rate: float
-var _frame_count: int = 0
 
 enum {OPEN_FILES}
 
@@ -53,6 +52,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		_aim_model_name = null
 		_aim_model_dict = null
 		add_governor_graphs()
+		MITW.init_action()
 
 
 func add_governor_graphs() -> void:
@@ -89,8 +89,8 @@ func _on_play_button_toggled(toggled_on: bool) -> void:
 
 
 func _on_timer_timeout() -> void:
-	_frame_count = _frame_count + 1
-	$FrameCount.text = str(_frame_count)
+	MITW.go_to_next_frame()
+	$FrameCount.text = str(MITW.get_frame_count())
 	add_frame_to_graph()
 
 
