@@ -21,5 +21,10 @@ label_settings = SubResource("LabelSettings_pmdw5")
 
 [node name="StartLine" type="Line2D" parent="."]
 points = PackedVector2Array(100, 0, 100, 100)
-width = 2.0
+width = 3.0
 default_color = Color(0.313726, 0.54902, 0.784314, 1)
+
+[node name="GraphLine" type="Line2D" parent="."]
+points = PackedVector2Array(200, 50, 200, 50)
+width = 2.0
+default_color = Color(0.313726, 0.470588, 0.784314, 1)

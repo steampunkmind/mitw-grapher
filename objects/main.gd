@@ -78,7 +78,6 @@ func add_governor_graphs() -> void:
 		
 	for governor_graph: GovernorGraph in governor_graphs.values():
 		governor_graph.set_header_width(header_width)
-	
 
 
 func _on_frame_rate_slider_value_changed(value: float) -> void:
@@ -97,3 +96,9 @@ func _on_play_button_toggled(toggled_on: bool) -> void:
 func _on_timer_timeout() -> void:
 	_frame_count = _frame_count + 1
 	$FrameCount.text = str(_frame_count)
+	add_frame_to_graph()
+
+
+func add_frame_to_graph() -> void:
+	for governor_graph: GovernorGraph in governor_graphs.values():
+		governor_graph.add_frame_to_graph()
