@@ -15,6 +15,7 @@ func _ready() -> void:
 	$FileMenu.get_popup().index_pressed.connect(_on_file_menu_index_pressed)
 	$FileDialog.set_current_dir("mitw-common/models")
 	$PlayButton.hide()
+	$FrameCount.hide()
 	$FrameRateSlider.value = frame_rate
 	$FrameRateValue.text = str(frame_rate)
 	$Timer.set_wait_time(1/frame_rate)
@@ -56,6 +57,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		$PlayButton.show()
 		$PlayButton.set_pressed_no_signal(false)
 		$Timer.paused = true
+		$FrameCount.show()
 		$FrameCount.text = "0"
 		
 		_aim_model_name = null
