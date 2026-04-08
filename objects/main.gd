@@ -14,6 +14,7 @@ enum {OPEN_FILES}
 func _ready() -> void:
 	$FileMenu.get_popup().index_pressed.connect(_on_file_menu_index_pressed)
 	$FileDialog.set_current_dir("mitw-common/models")
+	$PlayButton.hide()
 	$FrameRateSlider.value = frame_rate
 	$FrameRateValue.text = str(frame_rate)
 	$Timer.set_wait_time(1/frame_rate)
@@ -48,14 +49,25 @@ func _on_file_dialog_file_selected(path: String) -> void:
 		$FileDialog.popup()
 	else:
 		$FileNames.text = _aim_model_name + " - " + path.get_basename().get_file().capitalize()
-		MITW.set_models(_aim_model_dict, dict)
+		MITW.init(_aim_model_dict, dict)
+		MITW.init_action()
+		add_governor_graphs()
+		
+		$PlayButton.show()
+		$PlayButton.set_pressed_no_signal(false)
+		$Timer.paused = true
+		$FrameCount.text = "0"
+		
 		_aim_model_name = null
 		_aim_model_dict = null
-		add_governor_graphs()
-		MITW.init_action()
 
 
 func add_governor_graphs() -> void:
+	if governor_graphs.size() > 0:
+		for governor_graph: GovernorGraph in governor_graphs.values():
+			remove_child(governor_graph)
+		governor_graphs.clear()
+	
 	var header_margin = 48
 	var row_margin = 2
 	var row_location = header_margin
