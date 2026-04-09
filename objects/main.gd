@@ -71,7 +71,7 @@ func add_governor_graphs() -> void:
 		governor_graphs.clear()
 	
 	var header_margin = 48
-	var row_margin = 2
+	var row_margin = 1
 	var row_location = header_margin
 	var header_width = 0.0
 	for governor: Governor in MITW.gam_model().get_governors():

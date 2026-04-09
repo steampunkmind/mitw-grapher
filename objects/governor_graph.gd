@@ -23,10 +23,12 @@ func get_min_header_width() -> float:
 
 func set_header_width(value: float) -> void:
 	_header_width = value
-	init_line_x($StartLine, value)
-	init_line_xy($GraphLine, value, _governor.get_sensor().get_value())
-	init_line_xy($ErrorThreshold, value, _governor.error_threshold())
-	init_line_xy($ErrorPeak, value, _governor.error_peak())
+	init_line_x($StartLine, value, true)
+	init_line_x($HorzLine, value, false)
+	init_line_xy($GraphLine, value, _governor.get_sensor().get_value(), true)
+	init_line_xy($ErrorThreshold, value, _governor.error_threshold(), true)
+	init_line_xy($ErrorPeak, value, _governor.error_peak(), true)
+	init_line_xy($ErrorLine, value, 0, false)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,23 +37,25 @@ func _process(delta: float) -> void:
 
 
 func add_frame_to_graph() -> void:
-	add_point($GraphLine, _governor.get_sensor().get_value())
-	add_point($ErrorThreshold, _governor.error_threshold())
-	add_point($ErrorPeak, _governor.error_peak())
+	add_point($GraphLine, _governor.get_sensor().get_value(), true)
+	add_point($ErrorThreshold, _governor.error_threshold(), true)
+	add_point($ErrorPeak, _governor.error_peak(), true)
+	add_point($ErrorLine, _governor.get_error_value(), false)
 
 
 ### Utils ###
-func init_line_x(line: Line2D, x: float):
+func init_line_x(line: Line2D, x: float, both: bool):
 	var point = line.get_point_position(0)
 	point.x = x
 	line.set_point_position(0, point)
-	point = line.get_point_position(1)
-	point.x = x
-	line.set_point_position(1, point)
+	if both:
+		point = line.get_point_position(1)
+		point.x = x
+		line.set_point_position(1, point)
 
 
-func init_line_xy(line: Line2D, x: float, y: float):
-	y = graph_y(y)
+func init_line_xy(line: Line2D, x: float, y: float, top_graph: bool):
+	y = graph_y(y, top_graph)
 	var point = line.get_point_position(0)
 	point.x = x
 	point.y = y
@@ -62,16 +66,23 @@ func init_line_xy(line: Line2D, x: float, y: float):
 	line.set_point_position(1, point)
 
 
-func graph_y(y: float) -> float:
-	var sensor = _governor.get_sensor()
-	var value_above_min = y - sensor.get_min()
-	var range = sensor.get_max() - sensor.get_min()
-	var ratio = size.y/range
+func graph_y(y: float, top_graph: bool) -> float:
+	var value_above_min = y
+	var range = _governor.error_max()
+	var y_adjust = 103
+	var y_shift = 1
+	if top_graph:
+		var sensor = _governor.get_sensor()
+		value_above_min = y - sensor.get_min()
+		range = sensor.get_max() - sensor.get_min()
+		y_adjust = 53
+		y_shift = 52
+	var ratio = (size.y - y_adjust)/range
 	var scaled_value = value_above_min * ratio
-	return size.y - scaled_value;
+	return (size.y - y_shift) - scaled_value;
 
 
-func add_point(line: Line2D, y: float) -> void:
+func add_point(line: Line2D, y: float, top_graph: bool) -> void:
 	for i in range(line.get_point_count()):
 		var point = line.get_point_position(i)
 		point.x = point.x + 1
@@ -79,5 +90,5 @@ func add_point(line: Line2D, y: float) -> void:
 	
 	var point = line.get_point_position(line.get_point_count()-1)
 	point.x = point.x - 1
-	point.y = graph_y(y)
+	point.y = graph_y(y, top_graph)
 	line.add_point(point)

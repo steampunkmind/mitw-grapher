@@ -8,7 +8,7 @@ font_color = Color(0.313726, 0.54902, 0.784314, 1)
 [node name="GovernorGraph" type="ColorRect"]
 offset_left = 2.0
 offset_right = 1939.0
-offset_bottom = 100.0
+offset_bottom = 150.0
 script = ExtResource("1_vree1")
 
 [node name="Name" type="Label" parent="."]
@@ -19,22 +19,32 @@ offset_bottom = 23.0
 text = "Name"
 label_settings = SubResource("LabelSettings_pmdw5")
 
-[node name="StartLine" type="Line2D" parent="."]
-points = PackedVector2Array(100, 0, 100, 100)
-width = 3.0
-default_color = Color(0.313726, 0.54902, 0.784314, 1)
-
 [node name="ErrorThreshold" type="Line2D" parent="."]
-points = PackedVector2Array(200, 50, 200, 50)
+points = PackedVector2Array(100, 50, 100, 50)
 width = 2.0
 default_color = Color(0.980392, 0.627451, 0.627451, 1)
 
 [node name="ErrorPeak" type="Line2D" parent="."]
-points = PackedVector2Array(200, 50, 200, 50)
+points = PackedVector2Array(100, 50, 100, 50)
 width = 2.0
 default_color = Color(0.862745, 0.0784314, 0.235294, 1)
 
 [node name="GraphLine" type="Line2D" parent="."]
-points = PackedVector2Array(200, 50, 200, 50)
+points = PackedVector2Array(100, 50, 100, 50)
 width = 2.0
 default_color = Color(0.313726, 0.784314, 0.313726, 1)
+
+[node name="ErrorLine" type="Line2D" parent="."]
+points = PackedVector2Array(100, 125, 100, 125)
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="StartLine" type="Line2D" parent="."]
+points = PackedVector2Array(100, 0, 100, 150)
+width = 3.0
+default_color = Color(0.313726, 0.54902, 0.784314, 1)
+
+[node name="HorzLine" type="Line2D" parent="."]
+points = PackedVector2Array(100, 103, 1937, 100)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
