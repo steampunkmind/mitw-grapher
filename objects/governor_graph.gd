@@ -69,14 +69,14 @@ func init_line_xy(line: Line2D, x: float, y: float, top_graph: bool):
 func graph_y(y: float, top_graph: bool) -> float:
 	var value_above_min = y
 	var range = _governor.error_max()
-	var y_adjust = 103
-	var y_shift = 1
+	var y_adjust = 107.5
+	var y_shift = 2
 	if top_graph:
 		var sensor = _governor.get_sensor()
 		value_above_min = y - sensor.get_min()
 		range = sensor.get_max() - sensor.get_min()
-		y_adjust = 53
-		y_shift = 52
+		y_adjust = 57
+		y_shift = 55
 	var ratio = (size.y - y_adjust)/range
 	var scaled_value = value_above_min * ratio
 	return (size.y - y_shift) - scaled_value;
