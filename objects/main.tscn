@@ -16,9 +16,12 @@ offset_top = 8.0
 offset_right = 51.0
 offset_bottom = 39.0
 text = "File"
-item_count = 1
+item_count = 2
 popup/item_0/text = "Open Files"
 popup/item_0/id = 0
+popup/item_1/text = "Save Data"
+popup/item_1/id = 1
+popup/item_1/disabled = true
 
 [node name="FileNames" type="Label" parent="."]
 offset_left = 400.0

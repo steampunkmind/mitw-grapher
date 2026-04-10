@@ -8,7 +8,7 @@ var governor_graphs: Dictionary[String, GovernorGraph]
 
 @export var frame_rate: float
 
-enum {OPEN_FILES}
+enum {OPEN_FILES, SAVE_DATA}
 
 
 func _ready() -> void:
@@ -26,34 +26,56 @@ func _on_file_menu_index_pressed(index) -> void:
 	match index:
 		OPEN_FILES:
 			_on_open_files_menu_pressed()
+		SAVE_DATA:
+			_on_save_data_menu_pressed()
 
 
+### Open Files/Save Data ###
 func _on_open_files_menu_pressed() -> void:
 	_aim_model_name = null
 	_aim_model_dict = null
 	$FileDialog.set_title("Open an AIM File")
 	$FileDialog.set_filters(["*.aim"])
+	$FileDialog.set_file_mode(FileDialog.FILE_MODE_OPEN_FILE)
+	$FileDialog.popup()
+
+
+func _on_save_data_menu_pressed() -> void:
+	$FileDialog.set_current_file($FileNames.text + ".mitw")
+	$FileDialog.set_title("Save a MITW Data File")
+	$FileDialog.set_filters(["*.mitw"])
+	$FileDialog.set_file_mode(FileDialog.FILE_MODE_SAVE_FILE)
 	$FileDialog.popup()
 
 
 func _on_file_dialog_file_selected(path: String) -> void:
+	match $FileDialog.get_file_mode():
+		FileDialog.FILE_MODE_OPEN_FILE:
+			_open_file(path)
+		FileDialog.FILE_MODE_SAVE_FILE:
+			_save_data(path)
+
+
+func _open_file(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.READ)
 	var dict = JSON.parse_string(file.get_as_text())
 	file.close()
 	
 	if _aim_model_name == null:
-		_aim_model_name = path.get_basename().get_file().capitalize()
+		_aim_model_name = path.get_basename().get_file()
+		print(_aim_model_name)
 		_aim_model_dict = dict # Hold data until gam model is selected below.
 		await get_tree().create_timer(0.5).timeout # Wait for dialog to go away.
 		$FileDialog.set_title("Open a GAM File")
 		$FileDialog.set_filters(["*.gam"])
 		$FileDialog.popup()
 	else:
-		$FileNames.text = _aim_model_name + " - " + path.get_basename().get_file().capitalize()
+		$FileNames.text = _aim_model_name + " - " + path.get_basename().get_file()
 		MITW.init(_aim_model_dict, dict)
 		MITW.init_action()
 		add_governor_graphs()
 		
+		$FileMenu.get_popup().set_item_disabled(SAVE_DATA, false)
 		$PlayButton.show()
 		$PlayButton.set_pressed_no_signal(false)
 		$Timer.paused = true
@@ -89,6 +111,13 @@ func add_governor_graphs() -> void:
 		governor_graph.set_header_width(header_width)
 
 
+func _save_data(path: String) -> void:
+	var file = FileAccess.open(path, FileAccess.WRITE)
+	var content = "\"a\",\"b\"\n1,2"
+	file.store_line(content)
+
+
+### Transport ###
 func _on_frame_rate_slider_value_changed(value: float) -> void:
 	$FrameRateValue.text = str(value)
 	$Timer.set_wait_time(1/value)
