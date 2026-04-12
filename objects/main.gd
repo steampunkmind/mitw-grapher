@@ -2,7 +2,8 @@ extends Node
 
 var _aim_model_name # holds name between file dialogs
 var _aim_model_dict # holds dict between file dialogs
-var governor_graphs: Dictionary[String, GovernorGraph]
+var _data_frames: Array[Array]
+var _governor_graphs: Dictionary[String, GovernorGraph]
 
 @export var governor_graph_template: PackedScene
 
@@ -72,7 +73,8 @@ func _open_file(path: String) -> void:
 		$FileNames.text = _aim_model_name + " - " + path.get_basename().get_file()
 		MITW.init(_aim_model_dict, dict)
 		MITW.init_action()
-		add_governor_graphs()
+		_data_frames.clear()
+		_add_governor_graphs()
 		
 		$FileMenu.get_popup().set_item_disabled(SAVE_DATA, false)
 		$PlayButton.show()
@@ -85,11 +87,11 @@ func _open_file(path: String) -> void:
 		_aim_model_dict = null
 
 
-func add_governor_graphs() -> void:
-	if governor_graphs.size() > 0:
-		for governor_graph: GovernorGraph in governor_graphs.values():
-			remove_child(governor_graph)
-		governor_graphs.clear()
+func _add_governor_graphs() -> void:
+	if _governor_graphs.size() > 0:
+		for _governor_graph: GovernorGraph in _governor_graphs.values():
+			remove_child(_governor_graph)
+		_governor_graphs.clear()
 	
 	var header_margin = 48
 	var row_margin = 1
@@ -103,25 +105,30 @@ func add_governor_graphs() -> void:
 			header_width = min_header_width
 		
 		add_child(graph)
-		governor_graphs.set(governor.get_name(), graph)
+		_governor_graphs.set(governor.get_name(), graph)
 		row_location = row_location + graph.size.y + row_margin
 		
-	for governor_graph: GovernorGraph in governor_graphs.values():
+	for governor_graph: GovernorGraph in _governor_graphs.values():
 		governor_graph.set_header_width(header_width)
 
 
 func _save_data(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	var content: String = ""
+	var line: String = ""
 	
 	for governor: Governor in MITW.gam_model().get_governors():
-		if content.length() > 0:
-			content += ","
-		content += "\"" + governor.get_name() + "\""
+		if line.length() > 0:
+			line += ","
+		line += "\"" + governor.get_name() + "\""
+	file.store_line(line)
 	
-	content += "\r\n"
-	
-	file.store_line(content)
+	for data_frame: Array in _data_frames:
+		line = ""
+		for data_value: float in data_frame:
+			if line.length() > 0:
+				line += ","
+			line += str("%.2f" % data_value)
+		file.store_line(line)
 
 
 ### Transport ###
@@ -141,9 +148,17 @@ func _on_play_button_toggled(toggled_on: bool) -> void:
 func _on_timer_timeout() -> void:
 	MITW.go_to_next_frame()
 	$FrameCount.text = str(MITW.get_frame_count())
-	add_frame_to_graph()
+	_add_frame_data()
+	_add_frame_to_graph()
 
 
-func add_frame_to_graph() -> void:
-	for governor_graph: GovernorGraph in governor_graphs.values():
+func _add_frame_data() -> void:
+	var data_frame: Array[float] = []
+	for governor: Governor in MITW.gam_model().get_governors():
+		data_frame.append(governor.get_sensor().get_value())
+	_data_frames.append(data_frame)
+
+
+func _add_frame_to_graph() -> void:
+	for governor_graph: GovernorGraph in _governor_graphs.values():
 		governor_graph.add_frame_to_graph()
