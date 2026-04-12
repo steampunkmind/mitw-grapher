@@ -63,7 +63,6 @@ func _open_file(path: String) -> void:
 	
 	if _aim_model_name == null:
 		_aim_model_name = path.get_basename().get_file()
-		print(_aim_model_name)
 		_aim_model_dict = dict # Hold data until gam model is selected below.
 		await get_tree().create_timer(0.5).timeout # Wait for dialog to go away.
 		$FileDialog.set_title("Open a GAM File")
@@ -113,7 +112,15 @@ func add_governor_graphs() -> void:
 
 func _save_data(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	var content = "\"a\",\"b\"\n1,2"
+	var content: String = ""
+	
+	for governor: Governor in MITW.gam_model().get_governors():
+		if content.length() > 0:
+			content += ","
+		content += "\"" + governor.get_name() + "\""
+	
+	content += "\r\n"
+	
 	file.store_line(content)
 
 
