@@ -114,21 +114,24 @@ func _add_governor_graphs() -> void:
 
 func _save_data(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	var line: String = ""
+	var line: String = "\"Frame\""
 	
 	for governor: Governor in MITW.gam_model().get_governors():
-		if line.length() > 0:
-			line += ","
-		line += "\"" + governor.get_name() + "\""
+		var name = ",\"" + governor.get_name() + "."
+		line += name + "sensor value\""
+		line += name + "percept value\""
+		line += name + "error threshold\""
+		line += name + "error peak\""
+		line += name + "error value\""
 	file.store_line(line)
 	
+	var frame: int = 1
 	for data_frame: Array in _data_frames:
-		line = ""
+		line = str(frame)
 		for data_value: float in data_frame:
-			if line.length() > 0:
-				line += ","
-			line += str("%.2f" % data_value)
+			line += str(",%.2f" % data_value)
 		file.store_line(line)
+		frame += 1
 
 
 ### Transport ###
@@ -155,7 +158,11 @@ func _on_timer_timeout() -> void:
 func _add_frame_data() -> void:
 	var data_frame: Array[float] = []
 	for governor: Governor in MITW.gam_model().get_governors():
-		data_frame.append(governor.get_sensor().get_value())
+		data_frame.append(governor.get_sensor_value())
+		data_frame.append(governor.get_percept_value())
+		data_frame.append(governor.error_threshold())
+		data_frame.append(governor.error_peak())
+		data_frame.append(governor.get_error_value())
 	_data_frames.append(data_frame)
 
 

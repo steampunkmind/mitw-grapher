@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 
 
 func add_frame_to_graph() -> void:
-	add_point($GraphLine, _governor.get_sensor().get_value(), true)
+	add_point($GraphLine, _governor.get_sensor_value(), true)
 	add_point($ErrorThreshold, _governor.error_threshold(), true)
 	add_point($ErrorPeak, _governor.error_peak(), true)
 	add_point($ErrorLine, _governor.get_error_value(), false)
