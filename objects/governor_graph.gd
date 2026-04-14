@@ -18,13 +18,18 @@ func init (governor: Governor, y: float):
 
 
 func get_min_header_width() -> float:
-	return $Name.get_minimum_size().x + 14
+	return $Name.get_minimum_size().x + $SensorMax.size.x + 20
 
 
 func set_header_width(value: float) -> void:
 	_header_width = value
+	init_label_x($SensorMax, value)
+	init_label_x($SensorMin, value)
+	init_label_x($ErrorMax, value)
+	init_label_x($ErrorMin, value)
+	
 	init_line_x($StartLine, value, true)
-	init_line_x($HorzLine, value, false)
+	init_line_x($HorzLine, value - $SensorMax.size.x, false)
 	init_line_xy($GraphLine, value, _governor.get_sensor().get_value(), true)
 	init_line_xy($ErrorThreshold, value, _governor.error_threshold(), true)
 	init_line_xy($ErrorPeak, value, _governor.error_peak(), true)
@@ -37,6 +42,9 @@ func _process(delta: float) -> void:
 
 
 func add_frame_to_graph() -> void:
+	$SensorMax.text = str("%d" % _governor.get_sensor().get_max())
+	$SensorMin.text = str("%d" % _governor.get_sensor().get_min())
+	$ErrorMax.text = str(_governor.error_max())
 	add_point($GraphLine, _governor.get_sensor_value(), true)
 	add_point($ErrorThreshold, _governor.error_threshold(), true)
 	add_point($ErrorPeak, _governor.error_peak(), true)
@@ -44,6 +52,12 @@ func add_frame_to_graph() -> void:
 
 
 ### Utils ###
+func init_label_x(label: Label, x: float):
+	var p = label.position
+	p.x = x - 4 - $SensorMax.size.x
+	label.set_position(p)
+
+
 func init_line_x(line: Line2D, x: float, both: bool):
 	var point = line.get_point_position(0)
 	point.x = x

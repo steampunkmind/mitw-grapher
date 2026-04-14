@@ -118,10 +118,13 @@ func _save_data(path: String) -> void:
 	
 	for governor: Governor in MITW.gam_model().get_governors():
 		var name = ",\"" + governor.get_name() + "."
+		line += name + "sensor max\""
 		line += name + "sensor value\""
 		line += name + "percept value\""
 		line += name + "error threshold\""
 		line += name + "error peak\""
+		line += name + "sensor min\""
+		line += name + "error max\""
 		line += name + "error value\""
 	file.store_line(line)
 	
@@ -158,10 +161,13 @@ func _on_timer_timeout() -> void:
 func _add_frame_data() -> void:
 	var data_frame: Array[float] = []
 	for governor: Governor in MITW.gam_model().get_governors():
+		data_frame.append(governor.get_sensor().get_max())
 		data_frame.append(governor.get_sensor_value())
 		data_frame.append(governor.get_percept_value())
 		data_frame.append(governor.error_threshold())
 		data_frame.append(governor.error_peak())
+		data_frame.append(governor.get_sensor().get_min())
+		data_frame.append(governor.error_max())
 		data_frame.append(governor.get_error_value())
 	_data_frames.append(data_frame)
 
