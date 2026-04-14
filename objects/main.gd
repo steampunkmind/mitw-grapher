@@ -4,6 +4,8 @@ var _aim_model_name # holds name between file dialogs
 var _aim_model_dict # holds dict between file dialogs
 var _data_frames: Array[Array]
 var _governor_graphs: Dictionary[String, GovernorGraph]
+var _open_dir = "mitw-common/models"
+var _save_dir = "../../../.." # directory containing project
 
 @export var governor_graph_template: PackedScene
 
@@ -14,7 +16,6 @@ enum {OPEN_FILES, SAVE_DATA}
 
 func _ready() -> void:
 	$FileMenu.get_popup().index_pressed.connect(_on_file_menu_index_pressed)
-	$FileDialog.set_current_dir("mitw-common/models")
 	$PlayButton.hide()
 	$FrameCount.hide()
 	$FrameRateSlider.value = frame_rate
@@ -38,14 +39,16 @@ func _on_open_files_menu_pressed() -> void:
 	$FileDialog.set_title("Open an AIM File")
 	$FileDialog.set_filters(["*.aim"])
 	$FileDialog.set_file_mode(FileDialog.FILE_MODE_OPEN_FILE)
+	$FileDialog.set_current_dir(_open_dir)
 	$FileDialog.popup()
 
 
 func _on_save_data_menu_pressed() -> void:
-	$FileDialog.set_current_file($FileNames.text + ".mitw")
+	$FileDialog.set_current_file($FileNames.text + ".csv")
 	$FileDialog.set_title("Save a MITW Data File")
-	$FileDialog.set_filters(["*.mitw"])
+	$FileDialog.set_filters(["*.csv"])
 	$FileDialog.set_file_mode(FileDialog.FILE_MODE_SAVE_FILE)
+	$FileDialog.set_current_dir(_save_dir)
 	$FileDialog.popup()
 
 
@@ -85,6 +88,7 @@ func _open_file(path: String) -> void:
 		
 		_aim_model_name = null
 		_aim_model_dict = null
+		_open_dir = $FileDialog.current_dir
 
 
 func _add_governor_graphs() -> void:
@@ -135,6 +139,8 @@ func _save_data(path: String) -> void:
 			line += str(",%.2f" % data_value)
 		file.store_line(line)
 		frame += 1
+		
+	_save_dir = $FileDialog.current_dir
 
 
 ### Transport ###
