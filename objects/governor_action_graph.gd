@@ -33,4 +33,4 @@ func set_header_width(value: float) -> void:
 	var size = $Name.get_size()
 	size.x = value - 10
 	$Name.set_size(size)
-	init_line_x($StartLine, value, true)
+	_init_line_x($StartLine, value, true)
