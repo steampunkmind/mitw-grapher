@@ -30,7 +30,7 @@ func _add_governor_action_graphs() -> void:
 	var row_margin = 1
 	var row_location = header_margin
 	var header_width = 0.0
-	for action: Action in MITW.aim_model().get_actions():
+	for action: Action in MITW.aim_model().get_behavioral_actions():
 		var graph = governor_action_graph_template.instantiate()
 		graph.init(_governor, action, row_location)
 		var min_header_width = graph.get_min_header_width()
