@@ -22,7 +22,7 @@ func init (governor: Governor, y: float):
 
 func _add_governor_action_graphs() -> void:
 	if _governor_action_graphs.size() > 0:
-		for governor_action_graph: GovernorGraph in _governor_action_graphs.values():
+		for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
 			remove_child(governor_action_graph)
 		_governor_action_graphs.clear()
 	
@@ -84,6 +84,9 @@ func add_frame_to_graph() -> void:
 	add_governor_point($ErrorThreshold, _governor.error_threshold())
 	add_governor_point($ErrorPeak, _governor.error_peak())
 	add_error_point($ErrorLine, _governor.get_error_value())
+	
+	for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
+		governor_action_graph.add_frame_to_graph()
 
 
 ### Utils ###
