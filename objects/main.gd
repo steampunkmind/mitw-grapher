@@ -98,7 +98,7 @@ func _add_governor_graphs() -> void:
 		_governor_graphs.clear()
 	
 	var header_margin = 48
-	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 50) + 12
+	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
 	var row_location = header_margin
 	var header_width = 0.0
 	for governor: Governor in MITW.gam_model().get_governors():

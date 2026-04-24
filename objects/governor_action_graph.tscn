@@ -28,4 +28,4 @@ default_color = Color(0.313726, 0.54902, 0.784314, 1)
 [node name="EvaluationLine" type="Line2D" parent="."]
 points = PackedVector2Array(100, 25)
 width = 2.0
-default_color = Color(0.392157, 0.392157, 0.392157, 1)
+default_color = Color(0.313726, 0.470588, 0.705882, 1)

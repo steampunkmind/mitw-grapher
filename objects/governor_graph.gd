@@ -27,7 +27,7 @@ func _add_governor_action_graphs() -> void:
 		_governor_action_graphs.clear()
 	
 	var header_margin = 158
-	var row_margin = 1
+	var row_margin = 2
 	var row_location = header_margin
 	var header_width = 0.0
 	for action: Action in MITW.aim_model().get_behavioral_actions():
