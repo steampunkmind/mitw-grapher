@@ -6,7 +6,7 @@
 font_color = Color(0, 0, 0, 1)
 
 [node name="GovernorActionGraph" type="ColorRect"]
-offset_right = 1937.0
+offset_right = 1924.0
 offset_bottom = 50.0
 color = Color(0.941176, 0.960784, 0.980392, 1)
 script = ExtResource("1_vxnyn")
@@ -14,8 +14,9 @@ script = ExtResource("1_vxnyn")
 [node name="Name" type="Label" parent="."]
 layout_mode = 0
 offset_left = 5.0
+offset_top = 15.0
 offset_right = 52.0
-offset_bottom = 23.0
+offset_bottom = 38.0
 text = "Name"
 label_settings = SubResource("LabelSettings_vxnyn")
 horizontal_alignment = 2
@@ -29,3 +30,8 @@ default_color = Color(0.313726, 0.54902, 0.784314, 1)
 points = PackedVector2Array(100, 25)
 width = 2.0
 default_color = Color(0.313726, 0.470588, 0.705882, 1)
+
+[node name="BaseLine" type="Line2D" parent="."]
+points = PackedVector2Array(0, 51, 1924, 51)
+width = 2.0
+default_color = Color(0.12549, 0.12549, 0.12549, 1)

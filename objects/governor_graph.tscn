@@ -15,9 +15,11 @@ font_size = 14
 font_color = Color(0.313726, 0.54902, 0.784314, 1)
 
 [node name="GovernorGraph" type="ColorRect"]
+custom_minimum_size = Vector2(1924, 156)
 offset_left = 2.0
-offset_right = 1939.0
+offset_right = 839.0
 offset_bottom = 156.0
+size_flags_horizontal = 0
 script = ExtResource("1_vree1")
 governor_action_graph_template = ExtResource("2_yt37d")
 
@@ -111,11 +113,11 @@ width = 3.0
 default_color = Color(0.313726, 0.54902, 0.784314, 1)
 
 [node name="HorzLine" type="Line2D" parent="."]
-points = PackedVector2Array(76, 103, 1937, 103)
+points = PackedVector2Array(76, 103, 1924, 103)
 width = 3.0
 default_color = Color(0, 0, 0, 1)
 
 [node name="BaseLine" type="Line2D" parent="."]
-points = PackedVector2Array(76, 156, 1937, 156)
+points = PackedVector2Array(0, 156, 1924, 156)
 width = 3.0
 default_color = Color(0, 0, 0, 1)

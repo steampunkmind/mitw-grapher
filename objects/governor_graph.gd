@@ -40,6 +40,11 @@ func _add_governor_action_graphs() -> void:
 		add_child(graph)
 		_governor_action_graphs.set(action.get_name(), graph)
 		row_location = row_location + graph.size.y + row_margin
+		
+	var min_size = get_custom_minimum_size()
+	min_size.y = row_location
+	set_custom_minimum_size(min_size)
+
 
 
 func get_min_header_width() -> float:
@@ -64,7 +69,6 @@ func set_header_width(value: float) -> void:
 	
 	_init_line_x($StartLine, value, true)
 	_init_line_x($HorzLine, value - $SensorMax.size.x, false)
-	_init_line_x($BaseLine, value - $SensorMax.size.x, false)
 	init_governor_line_xy($GraphLine, value, _governor.get_sensor().get_value())
 	init_governor_line_xy($ErrorThreshold, value, _governor.error_threshold())
 	init_governor_line_xy($ErrorPeak, value, _governor.error_peak())

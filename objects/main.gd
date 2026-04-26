@@ -7,8 +7,6 @@ var _governor_graphs: Dictionary[String, GovernorGraph]
 var _open_dir = "mitw-common/models"
 var _save_dir = "../../../.." # directory containing project
 
-@export var governor_graph_template: PackedScene
-
 @export var frame_rate: float
 
 enum {OPEN_FILES, SAVE_DATA}
@@ -94,21 +92,21 @@ func _open_file(path: String) -> void:
 func _add_governor_graphs() -> void:
 	if _governor_graphs.size() > 0:
 		for _governor_graph: GovernorGraph in _governor_graphs.values():
-			remove_child(_governor_graph)
+			$Scroll/GovernorGraphs.remove_child(_governor_graph)
 		_governor_graphs.clear()
 	
-	var header_margin = 48
+	var header_margin = 0
 	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
 	var row_location = header_margin
 	var header_width = 0.0
 	for governor: Governor in MITW.gam_model().get_governors():
-		var graph = governor_graph_template.instantiate()
+		var graph = $Scroll/GovernorGraphs.governor_graph_template.instantiate()
 		graph.init(governor, row_location)
 		var min_header_width = graph.get_min_header_width()
 		if header_width < min_header_width:
 			header_width = min_header_width
 		
-		add_child(graph)
+		$Scroll/GovernorGraphs.add_child(graph)
 		_governor_graphs.set(governor.get_name(), graph)
 		row_location = row_location + graph.size.y + row_margin
 		
