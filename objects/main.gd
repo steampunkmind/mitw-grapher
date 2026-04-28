@@ -3,7 +3,8 @@ extends Node
 var _aim_model_name # holds name between file dialogs
 var _aim_model_dict # holds dict between file dialogs
 var _data_frames: Array[Array]
-var _governor_graphs: Dictionary[String, GovernorGraph]
+var _graphs: Array[Graph]
+
 var _open_dir = "mitw-common/models"
 var _save_dir = "../../../.." # directory containing project
 
@@ -75,7 +76,7 @@ func _open_file(path: String) -> void:
 		MITW.init(_aim_model_dict, dict)
 		MITW.init_action()
 		_data_frames.clear()
-		_add_governor_graphs()
+		_add_governor_rows()
 		
 		$FileMenu.get_popup().set_item_disabled(SAVE_DATA, false)
 		$PlayButton.show()
@@ -88,30 +89,47 @@ func _open_file(path: String) -> void:
 		_aim_model_dict = null
 		_open_dir = $FileDialog.current_dir
 
-
-func _add_governor_graphs() -> void:
-	if _governor_graphs.size() > 0:
-		for _governor_graph: GovernorGraph in _governor_graphs.values():
-			$Scroll/GovernorGraphs.remove_child(_governor_graph)
-		_governor_graphs.clear()
+func _add_governor_rows() -> void:
+	for graph: Node in _graphs:
+		$Scroll/GovernorRows.remove_child(graph)
+	_graphs.clear()
 	
 	var header_margin = 0
 	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
-	var row_location = header_margin
-	var header_width = 0.0
 	for governor: Governor in MITW.gam_model().get_governors():
-		var graph = $Scroll/GovernorGraphs.governor_graph_template.instantiate()
-		graph.init(governor, row_location)
-		var min_header_width = graph.get_min_header_width()
-		if header_width < min_header_width:
-			header_width = min_header_width
+		var governor_row = $Scroll/GovernorRows.governor_row_template.instantiate()
+		governor_row.init(governor)
+		$Scroll/GovernorRows.add_child(governor_row)
 		
-		$Scroll/GovernorGraphs.add_child(graph)
-		_governor_graphs.set(governor.get_name(), graph)
-		row_location = row_location + graph.size.y + row_margin
+		var governor_graph = $Scroll/GovernorRows.governor_graph_template.instantiate()
+		governor_graph.init(governor)
+		_add_graph(governor_graph)
 		
-	for governor_graph: GovernorGraph in _governor_graphs.values():
-		governor_graph.set_header_width(header_width)
+		for action: Action in MITW.aim_model().get_behavioral_actions():
+			var action_graph = $Scroll/GovernorRows.governor_action_graph_template.instantiate()
+			action_graph.init(governor, action)
+			_add_graph(action_graph)
+		
+	set_header_width(get_min_header_width())
+
+
+func _add_graph(graph: Graph) -> void:
+	$Scroll/GovernorRows.add_child(graph)
+	_graphs.append(graph)
+
+
+func get_min_header_width() -> float:
+	var result = 0
+	for graph: Graph in _graphs:
+		if result < graph.get_min_header_width():
+			result = graph.get_min_header_width()
+			
+	return result
+
+
+func set_header_width(value: float) -> void:
+	for graph: Graph in _graphs:
+		graph.set_header_width(value)
 
 
 func _save_data(path: String) -> void:
@@ -177,5 +195,5 @@ func _add_frame_data() -> void:
 
 
 func _add_frame_to_graph() -> void:
-	for governor_graph: GovernorGraph in _governor_graphs.values():
-		governor_graph.add_frame_to_graph()
+	for graph: Graph in _graphs:
+		graph.add_frame_to_graph()

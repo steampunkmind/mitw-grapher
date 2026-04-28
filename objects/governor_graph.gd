@@ -1,9 +1,9 @@
 class_name GovernorGraph extends Graph
+# Change name to GovernorCompatitor graph?
 
 var _governor: Governor 
 
-var _governor_action_graphs: Dictionary[String, GovernorActionGraph]
-@export var governor_action_graph_template: PackedScene
+const TEXT_MARGIN = 10
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,54 +11,20 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func init (governor: Governor, y: float):
+func init (governor: Governor) -> void:
 	_governor = governor
-	$Name.text = governor.get_name()
-	var p = get_position()
-	p.y = y
-	set_position(p)
-	_add_governor_action_graphs()
-
-
-func _add_governor_action_graphs() -> void:
-	if _governor_action_graphs.size() > 0:
-		for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
-			remove_child(governor_action_graph)
-		_governor_action_graphs.clear()
-	
-	var header_margin = 158
-	var row_margin = 2
-	var row_location = header_margin
-	var header_width = 0.0
-	for action: Action in MITW.aim_model().get_behavioral_actions():
-		var graph = governor_action_graph_template.instantiate()
-		graph.init(_governor, action, row_location)
-		var min_header_width = graph.get_min_header_width()
-		if header_width < min_header_width:
-			header_width = min_header_width
-		
-		add_child(graph)
-		_governor_action_graphs.set(action.get_name(), graph)
-		row_location = row_location + graph.size.y + row_margin
-		
-	var min_size = get_custom_minimum_size()
-	min_size.y = row_location
-	set_custom_minimum_size(min_size)
-
 
 
 func get_min_header_width() -> float:
-	var result = $Name.get_minimum_size().x + $SensorMax.size.x + 20
-	for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
-		var width = governor_action_graph.get_min_header_width()
-		if result < width:
-			result = width
-			
+	var result = $ComparatorLabel.get_minimum_size().x + TEXT_MARGIN
+	if result < $ErrorLabel.get_minimum_size().x + TEXT_MARGIN:
+		result = $ErrorLabel.get_minimum_size().x + TEXT_MARGIN
+		
 	return result
 
 
 func set_header_width(value: float) -> void:
-	_init_label_x($GovLabel, value - $GovLabel.size.x - 6)
+	_init_label_x($ComparatorLabel, value - $ComparatorLabel.size.x - 6)
 	_init_label_x($ErrorLabel, value - $ErrorLabel.size.x - 6)
 	
 	var label_x = value - 4 - $SensorMax.size.x
@@ -73,9 +39,6 @@ func set_header_width(value: float) -> void:
 	init_governor_line_xy($ErrorThreshold, value, _governor.error_threshold())
 	init_governor_line_xy($ErrorPeak, value, _governor.error_peak())
 	init_error_line_xy($ErrorLine, value, 0)
-	
-	for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
-		governor_action_graph.set_header_width(value)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -91,9 +54,6 @@ func add_frame_to_graph() -> void:
 	add_governor_point($ErrorThreshold, _governor.error_threshold())
 	add_governor_point($ErrorPeak, _governor.error_peak())
 	add_error_point($ErrorLine, _governor.get_error_value())
-	
-	for governor_action_graph: GovernorActionGraph in _governor_action_graphs.values():
-		governor_action_graph.add_frame_to_graph()
 
 
 ### Utils ###
@@ -107,7 +67,7 @@ func init_governor_line_xy(line: Line2D, x: float, y: float):
 
 func graph_governor_y(y: float) -> float:
 	var sensor = _governor.get_sensor()
-	return _graph_y(y, sensor.get_min(), sensor.get_max(), 57, 55)
+	return _graph_y(y, sensor.get_min(), sensor.get_max(), 055, 55) # this is no longer right because fo graph height change
 
 
 func graph_error_y(y: float) -> float:

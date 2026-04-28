@@ -9,13 +9,10 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func init (governor: Governor, action: Action, y: float):
+func init (governor: Governor, action: Action):
 	_governor = governor
 	_action = action
 	$Name.text = action.get_name()
-	var p = get_position()
-	p.y = y
-	set_position(p)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

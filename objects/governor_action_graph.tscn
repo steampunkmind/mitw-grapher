@@ -6,16 +6,19 @@
 font_color = Color(0, 0, 0, 1)
 
 [node name="GovernorActionGraph" type="ColorRect"]
+custom_minimum_size = Vector2(1924, 52)
 offset_right = 1924.0
-offset_bottom = 50.0
+offset_bottom = 52.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 color = Color(0.941176, 0.960784, 0.980392, 1)
 script = ExtResource("1_vxnyn")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 0
-offset_left = 5.0
+offset_left = 44.0
 offset_top = 15.0
-offset_right = 52.0
+offset_right = 91.0
 offset_bottom = 38.0
 text = "Name"
 label_settings = SubResource("LabelSettings_vxnyn")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7un3susi2r36"]
+
+[ext_resource type="Script" uid="uid://ce6tjihlfi6g0" path="res://objects/governor_row.gd" id="1_e0unf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_e0unf"]
+font_size = 20
+font_color = Color(0.313726, 0.470588, 0.705882, 1)
+
+[node name="GovernorRow" type="ColorRect"]
+custom_minimum_size = Vector2(1624, 0)
+offset_right = 1624.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_e0unf")
+
+[node name="Name" type="Label" parent="."]
+z_index = 4096
+layout_mode = 0
+offset_left = 4.0
+offset_right = 62.0
+offset_bottom = 28.0
+text = "Name"
+label_settings = SubResource("LabelSettings_e0unf")

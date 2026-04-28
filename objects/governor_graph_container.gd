@@ -1,6 +1,8 @@
 extends VBoxContainer
 
+@export var governor_row_template: PackedScene
 @export var governor_graph_template: PackedScene
+@export var governor_action_graph_template: PackedScene
 
 
 # Called when the node enters the scene tree for the first time.
