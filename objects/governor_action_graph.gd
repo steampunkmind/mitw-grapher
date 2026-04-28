@@ -38,8 +38,6 @@ func get_min_header_width() -> float:
 
 
 func set_header_width(value: float) -> void:
-	var size = $Name.get_size()
-	size.x = value - 10
-	$Name.set_size(size)
+	_init_label_x($Name, value - $Name.size.x - 6)
 	_init_line_x($StartLine, value, true)
 	_init_line_x($EvaluationLine, value, false)

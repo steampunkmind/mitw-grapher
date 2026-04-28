@@ -99,7 +99,7 @@ func _add_governor_rows() -> void:
 	for governor: Governor in MITW.gam_model().get_governors():
 		var governor_row = $Scroll/GovernorRows.governor_row_template.instantiate()
 		governor_row.init(governor)
-		$Scroll/GovernorRows.add_child(governor_row)
+		_add_graph(governor_row)
 		
 		var governor_graph = $Scroll/GovernorRows.governor_graph_template.instantiate()
 		governor_graph.init(governor)

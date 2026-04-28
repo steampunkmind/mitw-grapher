@@ -1,4 +1,4 @@
-class_name GovernorRow extends Control
+class_name GovernorRow extends Graph
 
 var _governor: Governor 
 
@@ -9,8 +9,7 @@ func init (governor: Governor):
 
 
 func get_min_header_width() -> float:
-	var result = $Name.get_minimum_size().x + 54
-	return result
+	return $Name.get_minimum_size().x + 48
 
 
 func set_header_width(value: float) -> void:
