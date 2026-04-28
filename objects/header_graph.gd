@@ -1,4 +1,4 @@
-class_name GovernorRow extends Graph
+class_name HeaderGraph extends Graph
 
 var _governor: Governor 
 

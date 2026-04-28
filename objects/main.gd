@@ -91,22 +91,22 @@ func _open_file(path: String) -> void:
 
 func _add_governor_rows() -> void:
 	for graph: Node in _graphs:
-		$Scroll/GovernorRows.remove_child(graph)
+		$Scroll/Graphs.remove_child(graph)
 	_graphs.clear()
 	
 	var header_margin = 0
 	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
 	for governor: Governor in MITW.gam_model().get_governors():
-		var governor_row = $Scroll/GovernorRows.governor_row_template.instantiate()
+		var governor_row = $Scroll/Graphs.header_graph_template.instantiate()
 		governor_row.init(governor)
 		_add_graph(governor_row)
 		
-		var governor_graph = $Scroll/GovernorRows.governor_graph_template.instantiate()
+		var governor_graph = $Scroll/Graphs.comparator_graph_template.instantiate()
 		governor_graph.init(governor)
 		_add_graph(governor_graph)
 		
 		for action: Action in MITW.aim_model().get_behavioral_actions():
-			var action_graph = $Scroll/GovernorRows.governor_action_graph_template.instantiate()
+			var action_graph = $Scroll/Graphs.action_evaluation_template.instantiate()
 			action_graph.init(governor, action)
 			_add_graph(action_graph)
 		
@@ -114,7 +114,7 @@ func _add_governor_rows() -> void:
 
 
 func _add_graph(graph: Graph) -> void:
-	$Scroll/GovernorRows.add_child(graph)
+	$Scroll/Graphs.add_child(graph)
 	_graphs.append(graph)
 
 

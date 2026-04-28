@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnbetvqd2nxbw"]
 
-[ext_resource type="Script" uid="uid://deen7fjk7jwx5" path="res://objects/governor_action_graph.gd" id="1_vxnyn"]
+[ext_resource type="Script" uid="uid://deen7fjk7jwx5" path="res://objects/action_evaluation_graph.gd" id="1_vxnyn"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vxnyn"]
 font_color = Color(0, 0, 0, 1)

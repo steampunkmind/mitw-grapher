@@ -1,4 +1,4 @@
-class_name GovernorActionGraph extends Graph
+class_name ActionEvaluationGraph extends Graph
 
 var _governor: Governor
 var _action: Action

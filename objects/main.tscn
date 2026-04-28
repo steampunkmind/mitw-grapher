@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://cjmad8wgensc2"]
 
 [ext_resource type="Script" uid="uid://dtj6ffthw023u" path="res://objects/main.gd" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://m7fh8q7htptr" path="res://objects/governor_graph.tscn" id="2_5wnch"]
+[ext_resource type="PackedScene" uid="uid://m7fh8q7htptr" path="res://objects/comparator_graph.tscn" id="2_5wnch"]
 [ext_resource type="Texture2D" uid="uid://o4eyaa5nl73x" path="res://graphics/play.svg" id="2_f1df6"]
-[ext_resource type="PackedScene" uid="uid://b7un3susi2r36" path="res://objects/governor_row.tscn" id="2_t1t6x"]
+[ext_resource type="PackedScene" uid="uid://b7un3susi2r36" path="res://objects/header_graph.tscn" id="2_t1t6x"]
 [ext_resource type="Texture2D" uid="uid://mjjjpbwvnl8s" path="res://graphics/pause.svg" id="3_5wnch"]
-[ext_resource type="Script" uid="uid://ctf2jcyi532cf" path="res://objects/governor_graph_container.gd" id="5_n3uw7"]
-[ext_resource type="PackedScene" uid="uid://cnbetvqd2nxbw" path="res://objects/governor_action_graph.tscn" id="6_t1t6x"]
+[ext_resource type="Script" uid="uid://ctf2jcyi532cf" path="res://objects/graphs.gd" id="5_n3uw7"]
+[ext_resource type="PackedScene" uid="uid://cnbetvqd2nxbw" path="res://objects/action_evaluation_graph.tscn" id="6_t1t6x"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_ig7tw")
@@ -71,15 +71,15 @@ offset_top = 60.0
 offset_right = 1937.0
 offset_bottom = 1141.0
 
-[node name="GovernorRows" type="VBoxContainer" parent="Scroll"]
+[node name="Graphs" type="VBoxContainer" parent="Scroll"]
 clip_children = 1
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource("5_n3uw7")
-governor_row_template = ExtResource("2_t1t6x")
-governor_graph_template = ExtResource("2_5wnch")
-governor_action_graph_template = ExtResource("6_t1t6x")
+header_graph_template = ExtResource("2_t1t6x")
+comparator_graph_template = ExtResource("2_5wnch")
+action_evaluation_template = ExtResource("6_t1t6x")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"

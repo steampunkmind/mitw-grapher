@@ -1,5 +1,4 @@
-class_name GovernorGraph extends Graph
-# Change name to GovernorCompatitor graph?
+class_name ComparatorGraph extends Graph
 
 var _governor: Governor 
 
