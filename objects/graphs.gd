@@ -7,28 +7,31 @@ var _graphs: Array[Graph]
 @export var action_evaluation_template: PackedScene
 
 
-func _add_graphs() -> void:
+func add_graphs() -> Array[String]:
 	for graph: Node in _graphs:
 		remove_child(graph)
 	_graphs.clear()
 	
+	var header_frame: Array[String] = []
 	var header_margin = 0
 	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
 	for governor: Governor in MITW.gam_model().get_governors():
-		var governor_row = header_graph_template.instantiate()
-		governor_row.init(governor)
-		_add_graph(governor_row)
+		var header_graph = header_graph_template.instantiate()
+		header_graph.init(governor)
+		_add_graph(header_graph)
 		
-		var governor_graph = comparator_graph_template.instantiate()
-		governor_graph.init(governor)
-		_add_graph(governor_graph)
+		var comparator_graph = comparator_graph_template.instantiate()
+		comparator_graph.init(governor, header_frame)
+		_add_graph(comparator_graph)
+		
+		#header_frame.append(governor.get_name())
 		
 		for action: Action in MITW.aim_model().get_behavioral_actions():
-			var action_graph = action_evaluation_template.instantiate()
-			action_graph.init(governor, action)
-			_add_graph(action_graph)
-		
-	set_header_width(get_min_header_width())
+			var action_evaluation_graph = action_evaluation_template.instantiate()
+			action_evaluation_graph.init(governor, action, header_frame)
+			_add_graph(action_evaluation_graph)
+			
+	return header_frame
 
 
 func _add_graph(graph: Graph) -> void:
@@ -49,7 +52,7 @@ func set_header_width(value: float) -> void:
 		graph.set_header_width(value)
 
 
-func _add_frame_to_graph() -> Array[float]:
+func add_frame_to_graph() -> Array[float]:
 	var data_frame: Array[float] = []
 	for graph: Graph in _graphs:
 		graph.add_frame_to_graph(data_frame)

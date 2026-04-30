@@ -75,7 +75,8 @@ func _open_file(path: String) -> void:
 		MITW.init(_aim_model_dict, dict)
 		MITW.init_action()
 		_data_frames.clear()
-		$Scroll/Graphs._add_graphs()
+		var header_frame = $Scroll/Graphs.add_graphs()
+		_data_frames.append(header_frame)
 		
 		$FileMenu.get_popup().set_item_disabled(SAVE_DATA, false)
 		$PlayButton.show()
@@ -91,25 +92,17 @@ func _open_file(path: String) -> void:
 
 func _save_data(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.WRITE)
-	var line: String = "\"Frame\""
-	
-	for governor: Governor in MITW.gam_model().get_governors():
-		var name = ",\"" + governor.get_name() + "."
-		line += name + "sensor max\""
-		line += name + "sensor value\""
-		line += name + "percept value\""
-		line += name + "error threshold\""
-		line += name + "error peak\""
-		line += name + "sensor min\""
-		line += name + "error max\""
-		line += name + "error value\""
-	file.store_line(line)
-	
-	var frame: int = 1
+	var line: String
+	var frame: int = 0
 	for data_frame: Array in _data_frames:
-		line = str(frame)
-		for data_value: float in data_frame:
-			line += str(",%.2f" % data_value)
+		if file.get_length() == 0:
+			line = "Frame"
+			for column_header: String in data_frame:
+				line += "," + column_header
+		else:
+			line = str(frame)
+			for data_value: float in data_frame:
+				line += str(",%.2f" % data_value)
 		file.store_line(line)
 		frame += 1
 		
@@ -133,5 +126,5 @@ func _on_play_button_toggled(toggled_on: bool) -> void:
 func _on_timer_timeout() -> void:
 	MITW.go_to_next_frame()
 	$FrameCount.text = str(MITW.get_frame_count())
-	var data_frame = $Scroll/Graphs._add_frame_to_graph()
+	var data_frame = $Scroll/Graphs.add_frame_to_graph()
 	_data_frames.append(data_frame)

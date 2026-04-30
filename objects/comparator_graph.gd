@@ -5,13 +5,47 @@ var _governor: Governor
 const TEXT_MARGIN = 10
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-func init (governor: Governor) -> void:
+func init (governor: Governor, header_frame: Array[String]) -> void:
 	_governor = governor
+	
+	header_frame.append(governor.get_name() + ".sensor_max")
+	header_frame.append(governor.get_name() + ".sensor_min")
+	header_frame.append(governor.get_name() + ".sensor_value")
+	header_frame.append(governor.get_name() + ".error_threshold")
+	header_frame.append(governor.get_name() + ".error_peak")
+	header_frame.append(governor.get_name() + ".error_max")
+	header_frame.append(governor.get_name() + ".error_value")
+	
+
+func add_frame_to_graph(data_frame: Array[float]) -> void:
+	
+	var value = _governor.get_sensor().get_max()
+	$SensorMax.text = str("%d" % value)
+	data_frame.append(value)
+	
+	value = _governor.get_sensor().get_min()
+	$SensorMin.text = str("%d" % value)
+	data_frame.append(value)
+	
+	value = _governor.get_sensor_value()
+	add_governor_point($GraphLine, value)
+	data_frame.append(value)
+	
+	value = _governor.error_threshold()
+	add_governor_point($ErrorThreshold, value)
+	data_frame.append(value)
+	
+	value = _governor.error_peak()
+	add_governor_point($ErrorPeak, value)
+	data_frame.append(value)
+	
+	value = _governor.error_max()
+	$ErrorMax.text = str(value)
+	data_frame.append(value)
+	
+	value = _governor.get_error_value()
+	add_error_point($ErrorLine, value)
+	data_frame.append(value)
 
 
 func get_min_header_width() -> float:
@@ -38,42 +72,6 @@ func set_header_width(value: float) -> void:
 	init_governor_line_xy($ErrorThreshold, value, _governor.error_threshold())
 	init_governor_line_xy($ErrorPeak, value, _governor.error_peak())
 	init_error_line_xy($ErrorLine, value, 0)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func add_frame_to_graph(data_frame: Array[float]) -> void:
-	
-	var value = _governor.get_sensor().get_max()
-	$SensorMax.text = str("%d" % value)
-	data_frame.append(value)
-	
-	value = _governor.get_sensor().get_min()
-	$SensorMin.text = str("%d" % value)
-	data_frame.append(value)
-	
-	value = _governor.error_max()
-	$ErrorMax.text = str(value)
-	data_frame.append(value)
-	
-	value = _governor.get_sensor_value()
-	add_governor_point($GraphLine, value)
-	data_frame.append(value)
-	
-	value = _governor.error_threshold()
-	add_governor_point($ErrorThreshold, value)
-	data_frame.append(value)
-	
-	value = _governor.error_peak()
-	add_governor_point($ErrorPeak, value)
-	data_frame.append(value)
-	
-	value = _governor.get_error_value()
-	add_error_point($ErrorLine, value)
-	data_frame.append(value)
 
 
 ### Utils ###
