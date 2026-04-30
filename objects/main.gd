@@ -133,19 +133,5 @@ func _on_play_button_toggled(toggled_on: bool) -> void:
 func _on_timer_timeout() -> void:
 	MITW.go_to_next_frame()
 	$FrameCount.text = str(MITW.get_frame_count())
-	_add_frame_data()
-	$Scroll/Graphs._add_frame_to_graph()
-
-
-func _add_frame_data() -> void:
-	var data_frame: Array[float] = []
-	for governor: Governor in MITW.gam_model().get_governors():
-		data_frame.append(governor.get_sensor().get_max())
-		data_frame.append(governor.get_sensor_value())
-		data_frame.append(governor.get_percept_value())
-		data_frame.append(governor.error_threshold())
-		data_frame.append(governor.error_peak())
-		data_frame.append(governor.get_sensor().get_min())
-		data_frame.append(governor.error_max())
-		data_frame.append(governor.get_error_value())
+	var data_frame = $Scroll/Graphs._add_frame_to_graph()
 	_data_frames.append(data_frame)

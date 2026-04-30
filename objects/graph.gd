@@ -1,6 +1,10 @@
 class_name Graph extends ColorRect
 
 
+func add_frame_to_graph(data_frame: Array[float]) -> void:
+	pass
+
+
 ### Utils ###
 func _init_label_x(label: Label, x: float):
 	var p = label.position

@@ -49,6 +49,8 @@ func set_header_width(value: float) -> void:
 		graph.set_header_width(value)
 
 
-func _add_frame_to_graph() -> void:
+func _add_frame_to_graph() -> Array[float]:
+	var data_frame: Array[float] = []
 	for graph: Graph in _graphs:
-		graph.add_frame_to_graph()
+		graph.add_frame_to_graph(data_frame)
+	return data_frame

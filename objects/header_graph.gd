@@ -16,5 +16,5 @@ func set_header_width(value: float) -> void:
 	pass
 
 
-func add_frame_to_graph() -> void:
+func add_frame_to_graph(data_frame: Array[float]) -> void:
 	pass

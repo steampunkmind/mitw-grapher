@@ -45,14 +45,35 @@ func _process(delta: float) -> void:
 	pass
 
 
-func add_frame_to_graph() -> void:
-	$SensorMax.text = str("%d" % _governor.get_sensor().get_max())
-	$SensorMin.text = str("%d" % _governor.get_sensor().get_min())
-	$ErrorMax.text = str(_governor.error_max())
-	add_governor_point($GraphLine, _governor.get_sensor_value())
-	add_governor_point($ErrorThreshold, _governor.error_threshold())
-	add_governor_point($ErrorPeak, _governor.error_peak())
-	add_error_point($ErrorLine, _governor.get_error_value())
+func add_frame_to_graph(data_frame: Array[float]) -> void:
+	
+	var value = _governor.get_sensor().get_max()
+	$SensorMax.text = str("%d" % value)
+	data_frame.append(value)
+	
+	value = _governor.get_sensor().get_min()
+	$SensorMin.text = str("%d" % value)
+	data_frame.append(value)
+	
+	value = _governor.error_max()
+	$ErrorMax.text = str(value)
+	data_frame.append(value)
+	
+	value = _governor.get_sensor_value()
+	add_governor_point($GraphLine, value)
+	data_frame.append(value)
+	
+	value = _governor.error_threshold()
+	add_governor_point($ErrorThreshold, value)
+	data_frame.append(value)
+	
+	value = _governor.error_peak()
+	add_governor_point($ErrorPeak, value)
+	data_frame.append(value)
+	
+	value = _governor.get_error_value()
+	add_error_point($ErrorLine, value)
+	data_frame.append(value)
 
 
 ### Utils ###

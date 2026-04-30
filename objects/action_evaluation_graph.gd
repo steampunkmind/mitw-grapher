@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 	pass
 
 
-func add_frame_to_graph() -> void:
+func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var range = _governor.percept_range() * .25 # Zoom level 4x
 	var y = _governor.get_action_evaluation_value(_action)
 	
@@ -31,6 +31,7 @@ func add_frame_to_graph() -> void:
 		y = range
 		
 	_add_point($EvaluationLine, _graph_y(y, -range, range, 0, 0))
+	data_frame.append(y)
 
 
 func get_min_header_width() -> float:
