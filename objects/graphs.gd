@@ -24,13 +24,12 @@ func add_graphs() -> Array[String]:
 		comparator_graph.init(governor, header_frame)
 		_add_graph(comparator_graph)
 		
-		#header_frame.append(governor.get_name())
-		
 		for action: Action in MITW.aim_model().get_behavioral_actions():
 			var action_evaluation_graph = action_evaluation_template.instantiate()
 			action_evaluation_graph.init(governor, action, header_frame)
 			_add_graph(action_evaluation_graph)
 			
+	set_header_width(get_min_header_width())
 	return header_frame
 
 
