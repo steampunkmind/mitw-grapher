@@ -1,11 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnbetvqd2nxbw"]
 
 [ext_resource type="Script" uid="uid://deen7fjk7jwx5" path="res://objects/action_evaluation_graph.gd" id="1_vxnyn"]
+[ext_resource type="LabelSettings" uid="uid://ebacdoe8mnlw" path="res://graphics/graph_name.tres" id="2_5ueoi"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_vxnyn"]
-font_color = Color(0, 0, 0, 1)
-
-[node name="GovernorActionGraph" type="ColorRect"]
+[node name="ActionEvaluationGraph" type="ColorRect"]
 custom_minimum_size = Vector2(1924, 50)
 offset_right = 1924.0
 offset_bottom = 50.0
@@ -21,7 +19,7 @@ offset_top = 15.0
 offset_right = 91.0
 offset_bottom = 38.0
 text = "Name"
-label_settings = SubResource("LabelSettings_vxnyn")
+label_settings = ExtResource("2_5ueoi")
 horizontal_alignment = 2
 
 [node name="StartLine" type="Line2D" parent="."]

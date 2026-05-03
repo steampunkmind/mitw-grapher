@@ -6,7 +6,7 @@
 font_size = 20
 font_color = Color(0.313726, 0.470588, 0.705882, 1)
 
-[node name="GovernorRow" type="ColorRect"]
+[node name="HeaderGraph" type="ColorRect"]
 custom_minimum_size = Vector2(1624, 0)
 offset_right = 1624.0
 size_flags_horizontal = 0

@@ -4,7 +4,9 @@ var _graphs: Array[Graph]
 
 @export var header_graph_template: PackedScene
 @export var comparator_graph_template: PackedScene
+@export var error_graph_template: PackedScene
 @export var action_evaluation_template: PackedScene
+@export var spacer_template: PackedScene
 
 
 func add_graphs() -> Array[String]:
@@ -13,9 +15,11 @@ func add_graphs() -> Array[String]:
 	_graphs.clear()
 	
 	var header_frame: Array[String] = []
-	var header_margin = 0
-	var row_margin = (MITW.aim_model().get_behavioral_actions().size() * 52) + 6
 	for governor: Governor in MITW.gam_model().get_governors():
+		
+		if _graphs.size() > 0:
+			add_child(spacer_template.instantiate())
+		
 		var header_graph = header_graph_template.instantiate()
 		header_graph.init(governor)
 		_add_graph(header_graph)
@@ -23,6 +27,10 @@ func add_graphs() -> Array[String]:
 		var comparator_graph = comparator_graph_template.instantiate()
 		comparator_graph.init(governor, header_frame)
 		_add_graph(comparator_graph)
+		
+		var error_graph = error_graph_template.instantiate()
+		error_graph.init(governor, header_frame)
+		_add_graph(error_graph)
 		
 		for action: Action in MITW.aim_model().get_behavioral_actions():
 			var action_evaluation_graph = action_evaluation_template.instantiate()

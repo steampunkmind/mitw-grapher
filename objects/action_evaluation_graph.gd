@@ -13,6 +13,8 @@ func init (governor: Governor, action: Action, header_frame: Array[String]):
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
+	# all of this code is to zoom in the action evaluation so it can be seen better
+	# Hopefully it can be removed someday 
 	var range = _governor.percept_range() * .25 # Zoom level 4x
 	var y = _governor.get_action_evaluation_value(_action)
 	
@@ -22,7 +24,7 @@ func add_frame_to_graph(data_frame: Array[float]) -> void:
 	if y > range:
 		y = range
 		
-	_add_point($EvaluationLine, _graph_y(y, -range, range, 0, 0))
+	_add_point($EvaluationLine, _graph_y(y, -range, range, 1, 0))
 	data_frame.append(y)
 
 

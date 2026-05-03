@@ -1,6 +1,14 @@
 class_name Graph extends ColorRect
 
 
+func get_min_header_width() -> float:
+	return 0
+
+
+func set_header_width(value: float) -> void:
+	pass
+
+
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	pass
 
