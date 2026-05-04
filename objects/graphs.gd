@@ -2,6 +2,7 @@ extends VBoxContainer
 
 var _graphs: Array[Graph]
 
+@export var total_error_graph_template: PackedScene
 @export var header_graph_template: PackedScene
 @export var comparator_graph_template: PackedScene
 @export var error_graph_template: PackedScene
@@ -14,6 +15,11 @@ func add_graphs() -> Array[String]:
 		remove_child(graph)
 	_graphs.clear()
 	
+	var total_error_graph = total_error_graph_template.instantiate()
+	#total_error_graph.init(governor)
+	_add_graph(total_error_graph)
+		
+		
 	var header_frame: Array[String] = []
 	for governor: Governor in MITW.gam_model().get_governors():
 		
