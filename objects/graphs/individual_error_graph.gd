@@ -1,20 +1,26 @@
-class_name TotalErrorGraph extends Graph
+class_name IndividualErrorGraph extends Graph
 
 
 func init (header_frame: Array[String]) -> void:
-	header_frame.append("total_error_value")
-	header_frame.append("total_error_max_value")
-	header_frame.append("total_error_min_value")
+	header_frame.append("individual_error_value")
+	header_frame.append("individual_error_max_value")
+	header_frame.append("individual_error_min_value")
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var value = 0
 	var max = 0
-	var min = 0
+	var min = 999999
 	for governor: Governor in MITW.gam_model().get_governors():
-		value += governor.get_error_value()
-		max += governor.error_max()
-		min += governor.error_min()
+		var e = governor.get_error_value()
+		if value < e: 
+			value = e
+		e = governor.error_max()
+		if max < e: 
+			max = e
+		e = governor.error_min()
+		if min > e: 
+			min = e
 		
 	_add_point($ErrorLine, _graph_y(value, 0, max, 0, 0))
 	data_frame.append(value)
@@ -36,3 +42,4 @@ func set_header_width(value: float) -> void:
 	_init_label_x($ErrorMin, value - $ErrorMin.size.x - TEXT_MARGIN)
 	_init_line_x($StartLine, value, true)
 	_init_line_x($ErrorLine, value, false)
+	

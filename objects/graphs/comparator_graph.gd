@@ -42,11 +42,8 @@ func get_min_header_width() -> float:
 
 func set_header_width(value: float) -> void:
 	_init_label_x($Name, value - $Name.size.x - TEXT_MARGIN)
-	
-	var label_x = value - 4 - $SensorMax.size.x
-	_init_label_x($SensorMax, label_x)
-	_init_label_x($SensorMin, label_x)
-	
+	_init_label_x($SensorMax, value - $SensorMax.size.x - TEXT_MARGIN)
+	_init_label_x($SensorMin, value - $SensorMin.size.x - TEXT_MARGIN)
 	_init_line_x($StartLine, value, true)
 	var sensor = _governor.get_sensor()
 	var min = sensor.get_min()

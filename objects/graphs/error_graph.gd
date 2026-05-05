@@ -30,9 +30,7 @@ func get_min_header_width() -> float:
 
 func set_header_width(value: float) -> void:
 	_init_label_x($Name, value - $Name.size.x - TEXT_MARGIN)
+	_init_label_x($ErrorMax, value - $ErrorMax.size.x - TEXT_MARGIN)
+	_init_label_x($ErrorMin, value - $ErrorMin.size.x - TEXT_MARGIN)
 	_init_line_x($StartLine, value, true)
 	_init_line_x($ErrorLine, value, false)
-	var label_x = value - 4 - $ErrorMax.size.x
-	_init_label_x($ErrorMax, label_x)
-	_init_label_x($ErrorMin, label_x)
-	
