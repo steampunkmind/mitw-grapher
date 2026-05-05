@@ -30,15 +30,6 @@ offset_bottom = 18.0
 label_settings = ExtResource("3_hfr5n")
 horizontal_alignment = 2
 
-[node name="ErrorMin" type="Label" parent="."]
-layout_mode = 0
-offset_left = 74.0
-offset_top = 32.0
-offset_right = 98.0
-offset_bottom = 52.0
-label_settings = ExtResource("3_hfr5n")
-horizontal_alignment = 2
-
 [node name="ErrorLine" type="Line2D" parent="."]
 points = PackedVector2Array(100, 50)
 width = 2.0
