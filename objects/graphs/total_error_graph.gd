@@ -3,8 +3,8 @@ class_name TotalErrorGraph extends Graph
 
 func init (header_frame: Array[String]) -> void:
 	header_frame.append("total_error_value")
-	header_frame.append("total_error_max_value")
-	header_frame.append("total_error_min_value")
+	header_frame.append("total_error_max")
+	header_frame.append("total_error_min")
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:

@@ -3,8 +3,8 @@ class_name IndividualErrorGraph extends Graph
 
 func init (header_frame: Array[String]) -> void:
 	header_frame.append("individual_error_value")
-	header_frame.append("individual_error_max_value")
-	header_frame.append("individual_error_min_value")
+	header_frame.append("individual_error_max")
+	header_frame.append("individual_error_min")
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:

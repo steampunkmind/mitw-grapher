@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjmad8wgensc2"]
+[gd_scene load_steps=13 format=3 uid="uid://cjmad8wgensc2"]
 
 [ext_resource type="Script" uid="uid://dtj6ffthw023u" path="res://objects/main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://m7fh8q7htptr" path="res://objects/graphs/comparator_graph.tscn" id="2_5wnch"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://mjjjpbwvnl8s" path="res://graphics/pause.svg" id="3_5wnch"]
 [ext_resource type="PackedScene" uid="uid://b7jf2nrhqctds" path="res://objects/graphs/total_error_graph.tscn" id="5_30s78"]
 [ext_resource type="Script" uid="uid://ctf2jcyi532cf" path="res://objects/graphs/graphs.gd" id="5_n3uw7"]
+[ext_resource type="PackedScene" uid="uid://0fio7p3pxwxk" path="res://objects/graphs/waiting_graph.tscn" id="5_nimvt"]
 [ext_resource type="PackedScene" uid="uid://cnjttsa1liv0v" path="res://objects/graphs/individual_error_graph.tscn" id="5_rta3i"]
 [ext_resource type="PackedScene" uid="uid://cnbetvqd2nxbw" path="res://objects/graphs/action_evaluation_graph.tscn" id="6_t1t6x"]
 [ext_resource type="PackedScene" uid="uid://cm8ijo280bdkh" path="res://objects/graphs/error_graph.tscn" id="7_bng5c"]
@@ -82,6 +83,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 1
 script = ExtResource("5_n3uw7")
+waiting_graph_template = ExtResource("5_nimvt")
 individual_error_graph_template = ExtResource("5_rta3i")
 total_error_graph_template = ExtResource("5_30s78")
 header_graph_template = ExtResource("2_t1t6x")

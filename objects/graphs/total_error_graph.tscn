@@ -20,6 +20,7 @@ offset_right = 98.0
 offset_bottom = 37.0
 text = "Total Error	"
 label_settings = ExtResource("2_0ef3p")
+horizontal_alignment = 2
 
 [node name="ErrorMax" type="Label" parent="."]
 layout_mode = 0

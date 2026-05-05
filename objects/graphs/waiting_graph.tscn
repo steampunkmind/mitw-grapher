@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://0fio7p3pxwxk"]
+
+[ext_resource type="Script" uid="uid://ea726tt7qhni" path="res://objects/graphs/waiting_graph.gd" id="1_pg14j"]
+[ext_resource type="LabelSettings" uid="uid://ebacdoe8mnlw" path="res://graphics/graph_name.tres" id="2_clm0y"]
+[ext_resource type="LabelSettings" uid="uid://xgm8tm1kh54k" path="res://graphics/graph_value.tres" id="3_334bx"]
+
+[node name="WaitingGraph" type="ColorRect"]
+custom_minimum_size = Vector2(1624, 50)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.972549, 1, 0.972549, 1)
+script = ExtResource("1_pg14j")
+metadata/_custom_type_script = "uid://eca0l38k1rkd"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 14.0
+offset_right = 98.0
+offset_bottom = 37.0
+text = "Waiting"
+label_settings = ExtResource("2_clm0y")
+horizontal_alignment = 2
+
+[node name="WaitingMax" type="Label" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = -2.0
+offset_right = 98.0
+offset_bottom = 18.0
+label_settings = ExtResource("3_334bx")
+horizontal_alignment = 2
+
+[node name="WaitingLine" type="Line2D" parent="."]
+points = PackedVector2Array(100, 50)
+width = 2.0
+default_color = Color(0, 1, 0, 1)
+
+[node name="StartLine" type="Line2D" parent="."]
+points = PackedVector2Array(100, 0, 100, 50)
+width = 3.0
+default_color = Color(0.313726, 0.54902, 0.784314, 1)
