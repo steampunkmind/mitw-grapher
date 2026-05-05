@@ -1,5 +1,7 @@
 class_name Graph extends ColorRect
 
+const TEXT_MARGIN = 6
+
 
 func get_min_header_width() -> float:
 	return 0

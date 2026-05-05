@@ -2,8 +2,6 @@ class_name ComparatorGraph extends Graph
 
 var _governor: Governor 
 
-const TEXT_MARGIN = 10
-
 
 func init (governor: Governor, header_frame: Array[String]) -> void:
 	_governor = governor
@@ -39,11 +37,11 @@ func add_frame_to_graph(data_frame: Array[float]) -> void:
 
 
 func get_min_header_width() -> float:
-	return $Name.get_minimum_size().x + TEXT_MARGIN
+	return $Name.get_minimum_size().x + (TEXT_MARGIN * 2)
 
 
 func set_header_width(value: float) -> void:
-	_init_label_x($Name, value - $Name.size.x - 6)
+	_init_label_x($Name, value - $Name.size.x - TEXT_MARGIN)
 	
 	var label_x = value - 4 - $SensorMax.size.x
 	_init_label_x($SensorMax, label_x)

@@ -1,8 +1,6 @@
-extends Graph
+class_name ErrorGraph extends Graph
 
 var _governor: Governor 
-
-const TEXT_MARGIN = 10
 
 
 func init (governor: Governor, header_frame: Array[String]) -> void:
@@ -27,11 +25,11 @@ func add_frame_to_graph(data_frame: Array[float]) -> void:
 	
 
 func get_min_header_width() -> float:
-	return $Name.get_minimum_size().x + TEXT_MARGIN
+	return $Name.get_minimum_size().x + (TEXT_MARGIN * 2)
 
 
 func set_header_width(value: float) -> void:
-	_init_label_x($Name, value - $Name.size.x - 6)
+	_init_label_x($Name, value - $Name.size.x - TEXT_MARGIN)
 	_init_line_x($StartLine, value, true)
 	_init_line_x($ErrorLine, value, false)
 	var label_x = value - 4 - $ErrorMax.size.x
