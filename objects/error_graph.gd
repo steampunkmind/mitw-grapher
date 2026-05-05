@@ -14,7 +14,7 @@ func init (governor: Governor, header_frame: Array[String]) -> void:
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var value = _governor.get_error_value()
-	_add_point($ErrorLine, _graph_y(value, 0, _governor.error_max(), 0, 1.5))
+	_add_point($ErrorLine, _graph_y(value, 0, _governor.error_max(), 0, 0))
 	data_frame.append(value)
 
 	value = _governor.error_max()

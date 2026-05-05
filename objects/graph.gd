@@ -44,7 +44,12 @@ func _init_line_xy(line: Line2D, x: float, y: float):
 func _graph_y(y: float, min: float, max: float, y_adjust: float, y_shift: float) -> float:
 	var ratio = (size.y - y_adjust)/(max - min)
 	var scaled_value = (y - min) * ratio
-	return (size.y - y_shift) - scaled_value;
+	var graph_y = (size.y - y_shift) - scaled_value;
+	if graph_y > size.y - 1:
+		graph_y = size.y - 1
+	if graph_y < 1:
+		graph_y = 1
+	return graph_y
 
 
 func _add_point(line: Line2D, y: float) -> void:

@@ -11,7 +11,7 @@ func add_frame_to_graph(data_frame: Array[float]) -> void:
 	for governor: Governor in MITW.gam_model().get_governors():
 		value += governor.get_error_value()
 		
-	_add_point($ErrorLine, _graph_y(value, 0, 1, 0, 1))
+	_add_point($ErrorLine, _graph_y(value, 0, 1, 0, 0))
 	data_frame.append(value)
 
 
