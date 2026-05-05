@@ -3,6 +3,7 @@ extends VBoxContainer
 var _graphs: Array[Graph]
 
 @export var waiting_graph_template: PackedScene
+@export var wondering_graph_template: PackedScene
 @export var individual_error_graph_template: PackedScene
 @export var total_error_graph_template: PackedScene
 @export var header_graph_template: PackedScene
@@ -18,6 +19,7 @@ func add_graphs() -> Array[String]:
 	_graphs.clear()
 	
 	_add_graph(waiting_graph_template.instantiate())
+	_add_graph(wondering_graph_template.instantiate())
 	_add_graph(individual_error_graph_template.instantiate())
 	_add_graph(total_error_graph_template.instantiate())
 		
