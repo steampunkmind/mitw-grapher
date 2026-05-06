@@ -2,6 +2,7 @@ extends VBoxContainer
 
 var _graphs: Array[Graph]
 
+@export var action_graph_template: PackedScene
 @export var waiting_graph_template: PackedScene
 @export var wondering_graph_template: PackedScene
 @export var individual_error_graph_template: PackedScene
@@ -18,28 +19,20 @@ func add_graphs() -> Array[String]:
 		remove_child(graph)
 	_graphs.clear()
 	
-	_add_graph(waiting_graph_template.instantiate())
-	_add_graph(wondering_graph_template.instantiate())
-	_add_graph(individual_error_graph_template.instantiate())
-	_add_graph(total_error_graph_template.instantiate())
-		
 	var header_frame: Array[String] = []
-	for governor: Governor in MITW.gam_model().get_governors():
+	_add_system_graph(action_graph_template.instantiate(), header_frame)
+	_add_system_graph(waiting_graph_template.instantiate(), header_frame)
+	_add_system_graph(wondering_graph_template.instantiate(), header_frame)
+	_add_system_graph(individual_error_graph_template.instantiate(), header_frame)
+	_add_system_graph(total_error_graph_template.instantiate(), header_frame)
 		
+	for governor: Governor in MITW.gam_model().get_governors():
 		if _graphs.size() > 0:
 			add_child(spacer_template.instantiate())
 		
-		var header_graph = header_graph_template.instantiate()
-		header_graph.init(governor)
-		_add_graph(header_graph)
-		
-		var comparator_graph = comparator_graph_template.instantiate()
-		comparator_graph.init(governor, header_frame)
-		_add_graph(comparator_graph)
-		
-		var error_graph = error_graph_template.instantiate()
-		error_graph.init(governor, header_frame)
-		_add_graph(error_graph)
+		_add_governor_graph(header_graph_template.instantiate(), governor, header_frame)
+		_add_governor_graph(comparator_graph_template.instantiate(), governor, header_frame)
+		_add_governor_graph(error_graph_template.instantiate(), governor, header_frame)
 		
 		for action: Action in MITW.aim_model().get_behavioral_actions():
 			var action_evaluation_graph = action_evaluation_template.instantiate()
@@ -48,6 +41,18 @@ func add_graphs() -> Array[String]:
 			
 	set_header_width(get_min_header_width())
 	return header_frame
+
+
+func _add_system_graph(graph: Graph, header_frame: Array[String]) -> void:
+	graph.init(header_frame)
+	add_child(graph)
+	_graphs.append(graph)
+
+
+func _add_governor_graph(graph: Graph, governor: Governor, header_frame: Array[String]) -> void:
+	graph.init(governor, header_frame)
+	add_child(graph)
+	_graphs.append(graph)
 
 
 func _add_graph(graph: Graph) -> void:

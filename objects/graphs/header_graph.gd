@@ -1,10 +1,7 @@
 class_name HeaderGraph extends Graph
 
-var _governor: Governor 
 
-
-func init (governor: Governor):
-	_governor = governor
+func init (governor: Governor, header_frame: Array[String]):
 	$Name.text = governor.get_name()
 
 
