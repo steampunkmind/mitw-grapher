@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://m7fh8q7htptr"]
 
-[ext_resource type="Script" uid="uid://bbvowr4sw0cm6" path="res://objects/comparator_graph.gd" id="1_vree1"]
+[ext_resource type="Script" uid="uid://bbvowr4sw0cm6" path="res://objects/graphs/comparator_graph.gd" id="1_vree1"]
 [ext_resource type="LabelSettings" uid="uid://ebacdoe8mnlw" path="res://graphics/graph_name.tres" id="2_ke7wd"]
 [ext_resource type="LabelSettings" uid="uid://xgm8tm1kh54k" path="res://graphics/graph_value.tres" id="4_a0237"]
 

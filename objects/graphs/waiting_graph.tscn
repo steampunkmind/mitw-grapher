@@ -5,9 +5,10 @@
 [ext_resource type="LabelSettings" uid="uid://xgm8tm1kh54k" path="res://graphics/graph_value.tres" id="3_334bx"]
 
 [node name="WaitingGraph" type="ColorRect"]
-custom_minimum_size = Vector2(1624, 50)
+custom_minimum_size = Vector2(1924, 50)
 offset_right = 40.0
 offset_bottom = 40.0
+size_flags_horizontal = 0
 color = Color(0.972549, 1, 0.972549, 1)
 script = ExtResource("1_pg14j")
 metadata/_custom_type_script = "uid://eca0l38k1rkd"

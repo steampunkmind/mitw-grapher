@@ -10,6 +10,7 @@ func get_min_header_width() -> float:
 
 
 func set_header_width(value: float) -> void:
+	super.set_header_width(value)
 	pass
 
 

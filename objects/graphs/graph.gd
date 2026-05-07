@@ -1,5 +1,7 @@
 class_name Graph extends ColorRect
 
+var _header_width: float
+
 const TEXT_MARGIN = 4
 
 
@@ -8,7 +10,7 @@ func get_min_header_width() -> float:
 
 
 func set_header_width(value: float) -> void:
-	pass
+	_header_width = value
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
@@ -55,11 +57,15 @@ func _graph_y(y: float, min: float, max: float, y_adjust: float, y_shift: float)
 
 
 func _add_point(line: Line2D, y: float) -> void:
+	
+	if line.get_point_count() > size.x - _header_width:
+		line.remove_point(0)
+		
 	for i in range(line.get_point_count()):
 		var point = line.get_point_position(i)
 		point.x = point.x + 1
 		line.set_point_position(i, point)
-	
+		
 	var point = line.get_point_position(line.get_point_count()-1)
 	point.x = point.x - 1
 	point.y = y

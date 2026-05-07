@@ -41,6 +41,7 @@ func get_min_header_width() -> float:
 
 
 func set_header_width(value: float) -> void:
+	super.set_header_width(value)
 	_init_label_x($Name, value - $Name.size.x - TEXT_MARGIN)
 	_init_label_x($SensorMax, value - $SensorMax.size.x - TEXT_MARGIN)
 	_init_label_x($SensorMin, value - $SensorMin.size.x - TEXT_MARGIN)
