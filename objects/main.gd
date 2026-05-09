@@ -73,7 +73,6 @@ func _open_file(path: String) -> void:
 	else:
 		$FileNames.text = _aim_model_name + " - " + path.get_basename().get_file()
 		MITW.init(_aim_model_dict, dict)
-		MITW.init_action()
 		_data_frames.clear()
 		var header_frame = $Scroll/Graphs.add_graphs()
 		_data_frames.append(header_frame)

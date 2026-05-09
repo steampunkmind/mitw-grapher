@@ -2,7 +2,6 @@ class_name ActionGraph extends Graph
 
 var action_names: Array[Control]
 var action_lines: Array[Node2D]
-var _last_action: Action
 
 
 func init (header_frame: Array[String]) -> void:
@@ -22,11 +21,9 @@ func set_header_width(value: float) -> void:
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
-	var action: Action = MITW.get_action()
-	if action != _last_action:
+	var action: Action = MITW.get_frame_action() 
+	if action != null:
 		_set_action(action)
-	
-	_last_action = action
 	
 	for control: Control in action_names:
 		if (control.position.x + control.size.x + TEXT_MARGIN < size.x):
