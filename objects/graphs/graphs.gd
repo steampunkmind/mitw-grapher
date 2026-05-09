@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+var _spacers: Array[Control]
 var _graphs: Array[Graph]
 
 @export var action_graph_template: PackedScene
@@ -15,7 +16,11 @@ var _graphs: Array[Graph]
 
 
 func add_graphs() -> Array[String]:
-	for graph: Node in _graphs:
+	for spacer: Control in _spacers:
+		remove_child(spacer)
+	_spacers.clear()
+	
+	for graph: Graph in _graphs:
 		remove_child(graph)
 	_graphs.clear()
 	
@@ -28,8 +33,10 @@ func add_graphs() -> Array[String]:
 		
 	for governor: Governor in MITW.gam_model().get_governors():
 		if _graphs.size() > 0:
-			add_child(spacer_template.instantiate())
-		
+			var spacer = spacer_template.instantiate()
+			add_child(spacer)
+			_spacers.append(spacer)
+			
 		_add_governor_graph(header_graph_template.instantiate(), governor, header_frame)
 		_add_governor_graph(comparator_graph_template.instantiate(), governor, header_frame)
 		_add_governor_graph(error_graph_template.instantiate(), governor, header_frame)
