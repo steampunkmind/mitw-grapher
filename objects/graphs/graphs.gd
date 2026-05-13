@@ -116,14 +116,14 @@ func _update_visible_count(toggled_on: bool) -> void:
 		if _visible_count == 1:
 			for graph: Graph in _graphs:
 				if graph is HeaderGraph:
-					var size = graph.get_custom_minimum_size()
-					size.y = 0
-					graph.set_custom_minimum_size(size)
+					var min_size = graph.get_custom_minimum_size()
+					min_size.y = 0
+					graph.set_custom_minimum_size(min_size)
 	else:
 		_visible_count -= 1
 		if _visible_count == 0:
 			for graph: Graph in _graphs:
 				if graph is HeaderGraph:
-					var size = graph.get_custom_minimum_size()
-					size.y = 25
-					graph.set_custom_minimum_size(size)
+					var min_size = graph.get_custom_minimum_size()
+					min_size.y = 25
+					graph.set_custom_minimum_size(min_size)

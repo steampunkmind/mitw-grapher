@@ -1,7 +1,7 @@
 class_name HeaderGraph extends Graph
 
 
-func init (governor: Governor, header_frame: Array[String]):
+func init (governor: Governor, _header_frame: Array[String]):
 	$Name.text = governor.get_name()
 
 
@@ -14,5 +14,5 @@ func set_header_width(value: float) -> void:
 	pass
 
 
-func add_frame_to_graph(data_frame: Array[float]) -> void:
+func add_frame_to_graph(_data_frame: Array[float]) -> void:
 	pass

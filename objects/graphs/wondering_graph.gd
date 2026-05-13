@@ -8,12 +8,12 @@ func init (header_frame: Array[String]) -> void:
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var value = MITW.get_wondering_value()
-	var max = MITW.get_wondering_max()
-	_add_point($WonderingLine, _graph_y(value, 0, max, 0, 0))
+	var wondering_max = MITW.get_wondering_max()
+	_add_point($WonderingLine, _graph_y(value, 0, wondering_max, 0, 0))
 	data_frame.append(value)
 	
-	$WonderingMax.text = str(max)
-	data_frame.append(max)
+	$WonderingMax.text = str(wondering_max)
+	data_frame.append(wondering_max)
 	
 
 func get_min_header_width() -> float:

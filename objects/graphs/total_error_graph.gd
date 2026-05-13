@@ -8,16 +8,16 @@ func init (header_frame: Array[String]) -> void:
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var value = 0
-	var max = 0
+	var error_max = 0
 	for governor: Governor in MITW.gam_model().get_governors():
 		value += governor.get_error_value()
-		max += governor.error_max()
+		error_max += governor.error_max()
 		
-	_add_point($ErrorLine, _graph_y(value, 0, max, 0, 0))
+	_add_point($ErrorLine, _graph_y(value, 0, error_max, 0, 0))
 	data_frame.append(value)
 	
-	$ErrorMax.text = str(max)
-	data_frame.append(max)
+	$ErrorMax.text = str(error_max)
+	data_frame.append(error_max)
 
 
 func get_min_header_width() -> float:

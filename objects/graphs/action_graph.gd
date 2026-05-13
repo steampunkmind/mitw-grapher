@@ -20,7 +20,7 @@ func set_header_width(value: float) -> void:
 	$ActionLineTemplate.set_position(p)
 
 
-func add_frame_to_graph(data_frame: Array[float]) -> void:
+func add_frame_to_graph(_data_frame: Array[float]) -> void:
 	var action: Action = MITW.get_frame_action() 
 	if action != null:
 		_set_action(action)
@@ -33,7 +33,6 @@ func add_frame_to_graph(data_frame: Array[float]) -> void:
 			action_names.erase(control)
 			
 	for node in action_lines:
-		node.position.x
 		if (node.position.x < size.x):
 			node.position.x = node.position.x + 1
 		else:

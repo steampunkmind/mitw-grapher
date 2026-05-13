@@ -13,7 +13,7 @@ func set_header_width(value: float) -> void:
 	_header_width = value
 
 
-func add_frame_to_graph(data_frame: Array[float]) -> void:
+func add_frame_to_graph(_data_frame: Array[float]) -> void:
 	pass
 
 
@@ -39,15 +39,16 @@ func _init_line_xy(line: Line2D, x: float, y: float):
 	point.x = x
 	point.y = y
 	line.set_point_position(0, point)
-	point = line.get_point_position(1)
-	point.x = x
-	point.y = y
-	line.set_point_position(1, point)
+	if line.get_point_count() > 1:
+		point = line.get_point_position(1)
+		point.x = x
+		point.y = y
+		line.set_point_position(1, point)
 
 
-func _graph_y(y: float, min: float, max: float, y_adjust: float, y_shift: float) -> float:
-	var ratio = (size.y - y_adjust)/(max - min)
-	var scaled_value = (y - min) * ratio
+func _graph_y(y: float, _min: float, _max: float, y_adjust: float, y_shift: float) -> float:
+	var ratio = (size.y - y_adjust)/(_max - _min)
+	var scaled_value = (y - _min) * ratio
 	var graph_y = (size.y - y_shift) - scaled_value;
 	if graph_y > size.y - 1:
 		graph_y = size.y - 1
@@ -62,9 +63,9 @@ func _add_point(line: Line2D, y: float) -> void:
 		line.remove_point(0)
 		
 	for i in range(line.get_point_count()):
-		var point = line.get_point_position(i)
-		point.x = point.x + 1
-		line.set_point_position(i, point)
+		var p = line.get_point_position(i)
+		p.x = p.x + 1
+		line.set_point_position(i, p)
 		
 	var point = line.get_point_position(line.get_point_count()-1)
 	point.x = point.x - 1

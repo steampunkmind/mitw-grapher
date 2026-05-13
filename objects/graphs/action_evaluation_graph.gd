@@ -13,9 +13,9 @@ func init (governor: Governor, action: Action, header_frame: Array[String]):
 
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
-	var range = _governor.percept_range()
+	var percept_range = _governor.percept_range()
 	var y = _governor.get_action_evaluation_value(_action)
-	_add_point($EvaluationLine, _graph_y(y, -range, range, 0, 0))
+	_add_point($EvaluationLine, _graph_y(y, -percept_range, percept_range, 0, 0))
 	data_frame.append(y)
 
 

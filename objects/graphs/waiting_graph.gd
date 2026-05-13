@@ -8,12 +8,12 @@ func init (header_frame: Array[String]) -> void:
 
 func add_frame_to_graph(data_frame: Array[float]) -> void:
 	var value = MITW.get_waiting_value()
-	var max = MITW.get_waiting_max()
-	_add_point($WaitingLine, _graph_y(value, 0, max, 0, 0))
+	var waiting_max = MITW.get_waiting_max()
+	_add_point($WaitingLine, _graph_y(value, 0, MITW.get_waiting_max(), 0, 0))
 	data_frame.append(value)
 	
-	$WaitingMax.text = str(max)
-	data_frame.append(max)
+	$WaitingMax.text = str(waiting_max)
+	data_frame.append(waiting_max)
 	
 
 func get_min_header_width() -> float:
