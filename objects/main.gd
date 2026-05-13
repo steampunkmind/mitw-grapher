@@ -18,6 +18,9 @@ func _ready() -> void:
 	$FrameCount.hide()
 	$FrameRateSlider.value = frame_rate
 	$FrameRateValue.text = str(frame_rate)
+	$ComparitorButton.hide()
+	$ErrorButton.hide()
+	$ActionEvaluationButton.hide()
 	$Timer.set_wait_time(1/frame_rate)
 	$Timer.paused = true
 
@@ -80,6 +83,9 @@ func _open_file(path: String) -> void:
 		$FileMenu.get_popup().set_item_disabled(SAVE_DATA, false)
 		$PlayButton.show()
 		$PlayButton.set_pressed_no_signal(false)
+		$ComparitorButton.show()
+		$ErrorButton.show()
+		$ActionEvaluationButton.show()
 		$Timer.paused = true
 		$FrameCount.show()
 		$FrameCount.text = "0"

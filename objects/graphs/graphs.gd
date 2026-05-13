@@ -85,3 +85,18 @@ func add_frame_to_graph() -> Array[float]:
 	for graph: Graph in _graphs:
 		graph.add_frame_to_graph(data_frame)
 	return data_frame
+
+
+func _on_comparitor_button_toggled(toggled_on: bool) -> void:
+	print("_on_comparitor_button_toggled")
+	print(toggled_on)
+
+
+func _on_error_button_toggled(toggled_on: bool) -> void:
+	print("_on_error_button_toggled")
+	print(toggled_on)
+
+
+func _on_action_evaluation_button_toggled(toggled_on: bool) -> void:
+	print("_on_action_evaluation_button_toggled")
+	print(toggled_on)
