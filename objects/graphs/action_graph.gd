@@ -25,19 +25,24 @@ func add_frame_to_graph(_data_frame: Array[float]) -> void:
 	if action != null:
 		_set_action(action)
 	
+	var erase
 	for control: Control in action_names:
 		if (control.position.x + control.size.x + TEXT_MARGIN < size.x):
 			control.position.x = control.position.x + 1
 		else:
 			remove_child(control)
-			action_names.erase(control)
-			
+			erase = control
+	if erase:
+		action_names.erase(erase)
+	
 	for node in action_lines:
 		if (node.position.x < size.x):
 			node.position.x = node.position.x + 1
 		else:
 			remove_child(node)
-			action_names.erase(node)
+			erase = node
+	if erase:
+		action_names.erase(erase)
 
 
 func _set_action(action: Action) -> void:
