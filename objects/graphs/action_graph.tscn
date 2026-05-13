@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bas4m44kl8anv"]
+[gd_scene load_steps=4 format=3 uid="uid://bas4m44kl8anv"]
 
 [ext_resource type="Script" uid="uid://gbbjl53x5p3x" path="res://objects/graphs/action_graph.gd" id="1_end1i"]
+[ext_resource type="LabelSettings" uid="uid://ebacdoe8mnlw" path="res://graphics/graph_name.tres" id="2_end1i"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_end1i"]
 font_color = Color(0.313726, 0.54902, 0.784314, 1)
@@ -13,6 +14,15 @@ size_flags_horizontal = 0
 color = Color(0.972549, 1, 0.972549, 1)
 script = ExtResource("1_end1i")
 metadata/_custom_type_script = "uid://eca0l38k1rkd"
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 54.0
+offset_bottom = 24.0
+text = "Action"
+label_settings = ExtResource("2_end1i")
 
 [node name="ActionNameTemplate" type="Label" parent="."]
 visible = false

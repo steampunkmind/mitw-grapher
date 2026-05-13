@@ -46,6 +46,7 @@ offset_top = 10.0
 offset_right = 184.0
 offset_bottom = 40.0
 toggle_mode = true
+button_pressed = true
 texture_normal = ExtResource("2_f1df6")
 texture_pressed = ExtResource("3_5wnch")
 
@@ -62,6 +63,7 @@ offset_top = 50.0
 offset_right = 197.0
 offset_bottom = 81.0
 toggle_mode = true
+button_pressed = true
 text = "Error"
 
 [node name="ActionEvaluationButton" type="Button" parent="."]

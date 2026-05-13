@@ -7,7 +7,7 @@ font_size = 20
 font_color = Color(0.313726, 0.470588, 0.705882, 1)
 
 [node name="HeaderGraph" type="ColorRect"]
-custom_minimum_size = Vector2(1624, 0)
+custom_minimum_size = Vector2(1924, 0)
 offset_right = 1624.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -17,7 +17,8 @@ script = ExtResource("1_e0unf")
 z_index = 4096
 layout_mode = 0
 offset_left = 4.0
+offset_top = -2.0
 offset_right = 62.0
-offset_bottom = 28.0
+offset_bottom = 26.0
 text = "Name"
 label_settings = SubResource("LabelSettings_e0unf")

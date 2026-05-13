@@ -2,6 +2,7 @@ extends VBoxContainer
 
 var _spacers: Array[Control]
 var _graphs: Array[Graph]
+var _visible_count: int = 1
 
 @export var action_graph_template: PackedScene
 @export var waiting_graph_template: PackedScene
@@ -58,11 +59,12 @@ func _add_system_graph(graph: Graph, header_frame: Array[String]) -> void:
 
 func _add_governor_graph(graph: Graph, governor: Governor, header_frame: Array[String]) -> void:
 	graph.init(governor, header_frame)
-	add_child(graph)
-	_graphs.append(graph)
+	_add_graph(graph)
 
 
 func _add_graph(graph: Graph) -> void:
+	if graph is ComparatorGraph or graph is ActionEvaluationGraph:
+		graph.set_visible(false)
 	add_child(graph)
 	_graphs.append(graph)
 
@@ -88,15 +90,40 @@ func add_frame_to_graph() -> Array[float]:
 
 
 func _on_comparitor_button_toggled(toggled_on: bool) -> void:
-	print("_on_comparitor_button_toggled")
-	print(toggled_on)
+	_update_visible_count(toggled_on)
+	for graph: Graph in _graphs:
+		if graph is ComparatorGraph:
+			graph.set_visible(toggled_on)
 
 
 func _on_error_button_toggled(toggled_on: bool) -> void:
-	print("_on_error_button_toggled")
-	print(toggled_on)
+	_update_visible_count(toggled_on)
+	for graph: Graph in _graphs:
+		if graph is ErrorGraph:
+			graph.set_visible(toggled_on)
 
 
 func _on_action_evaluation_button_toggled(toggled_on: bool) -> void:
-	print("_on_action_evaluation_button_toggled")
-	print(toggled_on)
+	_update_visible_count(toggled_on)
+	for graph: Graph in _graphs:
+		if graph is ActionEvaluationGraph:
+			graph.set_visible(toggled_on)
+
+
+func _update_visible_count(toggled_on: bool) -> void:
+	if toggled_on: 
+		_visible_count += 1
+		if _visible_count == 1:
+			for graph: Graph in _graphs:
+				if graph is HeaderGraph:
+					var size = graph.get_custom_minimum_size()
+					size.y = 0
+					graph.set_custom_minimum_size(size)
+	else:
+		_visible_count -= 1
+		if _visible_count == 0:
+			for graph: Graph in _graphs:
+				if graph is HeaderGraph:
+					var size = graph.get_custom_minimum_size()
+					size.y = 25
+					graph.set_custom_minimum_size(size)

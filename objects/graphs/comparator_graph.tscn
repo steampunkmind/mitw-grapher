@@ -4,7 +4,7 @@
 [ext_resource type="LabelSettings" uid="uid://ebacdoe8mnlw" path="res://graphics/graph_name.tres" id="2_ke7wd"]
 [ext_resource type="LabelSettings" uid="uid://xgm8tm1kh54k" path="res://graphics/graph_value.tres" id="4_a0237"]
 
-[node name="GovernorGraph" type="ColorRect"]
+[node name="ComparatorGraph" type="ColorRect"]
 custom_minimum_size = Vector2(1924, 100)
 offset_left = 2.0
 offset_right = 1926.0
