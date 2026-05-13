@@ -24,6 +24,9 @@ func add_frame_to_graph(_data_frame: Array[float]) -> void:
 	var action: Action = MITW.get_frame_action() 
 	if action != null:
 		_set_action(action)
+		_data_frame.append(MITW.aim_model().get_actions().find(action) + 1)
+	else:
+		_data_frame.append(0)
 	
 	var erase_name
 	for control: Control in action_names:
