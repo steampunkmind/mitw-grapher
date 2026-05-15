@@ -51,25 +51,26 @@ texture_normal = ExtResource("2_f1df6")
 texture_pressed = ExtResource("3_5wnch")
 
 [node name="ComparitorButton" type="Button" parent="."]
+offset_left = 16.0
 offset_top = 50.0
-offset_right = 97.0
+offset_right = 113.0
 offset_bottom = 81.0
 toggle_mode = true
 text = "Comparitor"
 
 [node name="ErrorButton" type="Button" parent="."]
-offset_left = 100.0
+offset_left = 116.0
 offset_top = 50.0
-offset_right = 197.0
+offset_right = 213.0
 offset_bottom = 81.0
 toggle_mode = true
 button_pressed = true
 text = "Error"
 
 [node name="ActionEvaluationButton" type="Button" parent="."]
-offset_left = 200.0
+offset_left = 216.0
 offset_top = 50.0
-offset_right = 297.0
+offset_right = 313.0
 offset_bottom = 81.0
 toggle_mode = true
 text = "Evaluation"
